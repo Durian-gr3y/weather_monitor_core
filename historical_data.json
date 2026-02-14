@@ -1,0 +1,83 @@
+[
+  {
+    "generated_at": "2026-02-14T12:27:48.266735+00:00",
+    "locations": [
+      {
+        "place": "Lagos, Nigeria",
+        "temp": 28.5,
+        "feels_like": 32.1,
+        "humidity": 75,
+        "wind_speed": 3.2,
+        "clouds": 60,
+        "description": "Partly cloudy",
+        "rain_probability": 45,
+        "risk": "MODERATE"
+      },
+      {
+        "place": "Abuja, Nigeria",
+        "temp": 31.2,
+        "feels_like": 33.8,
+        "humidity": 55,
+        "wind_speed": 2.5,
+        "clouds": 30,
+        "description": "Clear sky",
+        "rain_probability": 10,
+        "risk": "LOW"
+      }
+    ]
+  },
+  {
+    "generated_at": "2026-02-14T12:28:17.510583+00:00",
+    "locations": [
+      {
+        "place": "Lagos, Nigeria",
+        "temp": 28.5,
+        "feels_like": 32.1,
+        "humidity": 75,
+        "wind_speed": 3.2,
+        "clouds": 60,
+        "description": "Partly cloudy",
+        "rain_probability": 45,
+        "risk": "MODERATE"
+      },
+      {
+        "place": "Abuja, Nigeria",
+        "temp": 31.2,
+        "feels_like": 33.8,
+        "humidity": 55,
+        "wind_speed": 2.5,
+        "clouds": 30,
+        "description": "Clear sky",
+        "rain_probability": 10,
+        "risk": "LOW"
+      }
+    ]
+  },
+  {
+    "generated_at": "2026-02-14T12:28:50.276690+00:00",
+    "locations": [
+      {
+        "place": "Lagos, Nigeria",
+        "temp": 28.5,
+        "feels_like": 32.1,
+        "humidity": 75,
+        "wind_speed": 3.2,
+        "clouds": 60,
+        "description": "Partly cloudy",
+        "rain_probability": 45,
+        "risk": "MODERATE"
+      },
+      {
+        "place": "Abuja, Nigeria",
+        "temp": 31.2,
+        "feels_like": 33.8,
+        "humidity": 55,
+        "wind_speed": 2.5,
+        "clouds": 30,
+        "description": "Clear sky",
+        "rain_probability": 10,
+        "risk": "LOW"
+      }
+    ]
+  }
+]

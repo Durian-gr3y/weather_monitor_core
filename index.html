@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nigeria Weather Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f0f2f5;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #generated {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .export-section {
+            text-align: center;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            max-width: 600px;
+        }
+
+        .export-section h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+
+        .download-btn:hover {
+            background: #0056b3;
+        }
+
+        .export-info {
+            margin-top: 10px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .risk-low {
+            border-left: 5px solid green;
+        }
+
+        .risk-moderate {
+            border-left: 5px solid orange;
+        }
+
+        .risk-high {
+            border-left: 5px solid red;
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .card p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Nigeria Weather Dashboard</h1>
+    <div id="generated"></div>
+
+    <!-- Historical Data Export Section -->
+    <div class="export-section">
+        <h2>Historical Data Export</h2>
+        <p>Download all archived weather snapshots for analysis and record-keeping.</p>
+        <button class="download-btn" onclick="downloadHistoricalData()">Download Historical Data (JSON)</button>
+        <div class="export-info" id="export-info">Loading...</div>
+    </div>
+
+    <div class="grid" id="weather-grid"></div>
+
+    <script>
+        async function loadWeather() {
+            try {
+                const res = await fetch("weather_data.json");
+                const data = await res.json();
+
+                // Display last update
+                const generatedDiv = document.getElementById("generated");
+                generatedDiv.textContent = "Last updated: " + data.generated_at;
+
+                // Sort by rain_probability descending
+                data.locations.sort((a, b) => b.rain_probability - a.rain_probability);
+
+                const grid = document.getElementById("weather-grid");
+                grid.innerHTML = ""; // Clear old data
+
+                data.locations.forEach(loc => {
+                    const div = document.createElement("div");
+                    div.className = "card risk-" + loc.risk.toLowerCase();
+                    div.innerHTML = `
+            <h3>${loc.place}</h3>
+            <p><strong>${loc.temp}°C</strong> | ${loc.description}</p>
+            <p>Feels like: ${loc.feels_like}°C</p>
+            <p>Humidity: ${loc.humidity}% | Wind: ${loc.wind_speed} m/s | Clouds: ${loc.clouds}%</p>
+            <p>Rain: ${loc.rain_probability}% (${loc.risk})</p>
+          `;
+                    grid.appendChild(div);
+                });
+            } catch (err) {
+                document.getElementById("weather-grid").textContent = "Failed to load weather data.";
+                console.error(err);
+            }
+        }
+
+        async function loadHistoricalInfo() {
+            try {
+                const res = await fetch("historical_data.json");
+                const data = await res.json();
+
+                if (Array.isArray(data) && data.length > 0) {
+                    const count = data.length;
+                    const latest = data[data.length - 1].generated_at;
+                    document.getElementById("export-info").textContent =
+                        `${count} snapshot${count !== 1 ? 's' : ''} available | Latest: ${new Date(latest).toLocaleString()}`;
+                } else {
+                    document.getElementById("export-info").textContent = "No historical data available yet";
+                }
+            } catch (err) {
+                document.getElementById("export-info").textContent = "Historical data not yet available";
+            }
+        }
+
+        async function downloadHistoricalData() {
+            try {
+                const res = await fetch("historical_data.json");
+                if (!res.ok) throw new Error("Failed to fetch historical data");
+
+                const blob = await res.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "historical_weather_data.json";
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            } catch (err) {
+                alert("Failed to download historical data. Please try again later.");
+                console.error(err);
+            }
+        }
+
+        loadWeather();
+        loadHistoricalInfo();
+    </script>
+</body>
+
+</html>

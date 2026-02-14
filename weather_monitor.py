@@ -49,6 +49,7 @@ LOCATIONS = [
 LOCATION_CACHE_FILE = "location_cache.json"
 FORECAST_CACHE_FILE = "forecast_cache.json"
 WEATHER_DATA_FILE = "weather_data.json"
+HISTORICAL_DATA_FILE = "historical_data.json"
 FORECAST_REFRESH_INTERVAL = 7200  # 2 hours
 
 # =========================
@@ -84,6 +85,23 @@ def save_json(path, data):
             json.dump(data, f, indent=2)
     except Exception as e:
         logging.error(f"Failed to save JSON to {path}: {e}")
+
+def load_historical_data():
+    """Load historical data from file, returning an empty list if it doesn't exist."""
+    if os.path.exists(HISTORICAL_DATA_FILE):
+        try:
+            with open(HISTORICAL_DATA_FILE, "r") as f:
+                data = json.load(f)
+                # Ensure it's a list
+                if isinstance(data, list):
+                    return data
+                else:
+                    logging.warning(f"{HISTORICAL_DATA_FILE} is not a list. Resetting to empty list.")
+                    return []
+        except json.JSONDecodeError:
+            logging.error(f"Failed to decode JSON from {HISTORICAL_DATA_FILE}. Returning empty list.")
+            return []
+    return []
 
 # =========================
 # GEOCODING
@@ -304,8 +322,26 @@ def main():
             "locations": weather_results
         }
         
+        
         save_json(WEATHER_DATA_FILE, output_data)
         logging.info(f"Weather data saved to {WEATHER_DATA_FILE}")
+
+        # Archive to historical data
+        try:
+            historical_data = load_historical_data()
+            
+            # Create snapshot with the same structure as output_data
+            snapshot = {
+                "generated_at": output_data["generated_at"],
+                "locations": output_data["locations"]
+            }
+            
+            historical_data.append(snapshot)
+            save_json(HISTORICAL_DATA_FILE, historical_data)
+            logging.info(f"Historical snapshot appended to {HISTORICAL_DATA_FILE} (Total snapshots: {len(historical_data)})")
+        except Exception as e:
+            logging.error(f"Failed to update historical data: {e}")
+
 
     except Exception as e:
         logging.critical(f"Critical error in execution: {e}", exc_info=True)
