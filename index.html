@@ -164,23 +164,20 @@
             }
         }
 
-        async function downloadHistoricalData() {
+        function downloadHistoricalData() {
             try {
-                const res = await fetch("historical_data.csv");
-                if (!res.ok) throw new Error("Failed to fetch historical data");
-
-                const blob = await res.blob();
-                const url = window.URL.createObjectURL(blob);
+                // Use a direct link approach which is more robust for local file access (file://)
+                // than using fetch() which might be blocked or restricted.
                 const a = document.createElement("a");
-                a.href = url;
+                a.href = "historical_data.csv";
                 a.download = "historical_weather_data.csv";
                 document.body.appendChild(a);
                 a.click();
-                window.URL.revokeObjectURL(url);
                 document.body.removeChild(a);
+                console.log("Download initiated via direct link");
             } catch (err) {
-                alert("Failed to download historical data. Please try again later.");
-                console.error(err);
+                alert("Failed to initiate download. Please ensure historical_data.csv exists in the project folder.");
+                console.error("Direct download failed:", err);
             }
         }
 
