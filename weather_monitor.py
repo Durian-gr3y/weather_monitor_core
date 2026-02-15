@@ -2,7 +2,6 @@
 import os
 import time
 import json
-import csv
 import logging
 import hashlib
 import requests
@@ -51,7 +50,6 @@ LOCATION_CACHE_FILE = "location_cache.json"
 FORECAST_CACHE_FILE = "forecast_cache.json"
 WEATHER_DATA_FILE = "weather_data.json"
 HISTORICAL_DATA_FILE = "historical_data.json"
-HISTORICAL_DATA_CSV_FILE = "historical_data.csv"
 FORECAST_REFRESH_INTERVAL = 7200  # 2 hours
 
 # =========================
@@ -104,41 +102,6 @@ def load_historical_data():
             logging.error(f"Failed to decode JSON from {HISTORICAL_DATA_FILE}. Returning empty list.")
             return []
     return []
-
-def save_historical_csv(historical_data):
-    """Convert historical JSON data to CSV format and save to file."""
-    try:
-        with open(HISTORICAL_DATA_CSV_FILE, "w", newline="", encoding="utf-8") as f:
-            writer = csv.writer(f)
-            
-            # Write header
-            writer.writerow([
-                "timestamp", "place", "temp", "feels_like", "humidity", 
-                "wind_speed", "clouds", "description", "rain_probability", "risk"
-            ])
-            
-            # Flatten nested structure: each location in each snapshot becomes a row
-            for snapshot in historical_data:
-                timestamp = snapshot.get("generated_at", "")
-                locations = snapshot.get("locations", [])
-                
-                for location in locations:
-                    writer.writerow([
-                        timestamp,
-                        location.get("place", ""),
-                        location.get("temp", ""),
-                        location.get("feels_like", ""),
-                        location.get("humidity", ""),
-                        location.get("wind_speed", ""),
-                        location.get("clouds", ""),
-                        location.get("description", ""),
-                        location.get("rain_probability", ""),
-                        location.get("risk", "")
-                    ])
-        
-        logging.info(f"Historical data exported to {HISTORICAL_DATA_CSV_FILE}")
-    except Exception as e:
-        logging.error(f"Failed to save CSV to {HISTORICAL_DATA_CSV_FILE}: {e}")
 
 # =========================
 # GEOCODING
@@ -376,9 +339,6 @@ def main():
             historical_data.append(snapshot)
             save_json(HISTORICAL_DATA_FILE, historical_data)
             logging.info(f"Historical snapshot appended to {HISTORICAL_DATA_FILE} (Total snapshots: {len(historical_data)})")
-            
-            # Export to CSV format
-            save_historical_csv(historical_data)
         except Exception as e:
             logging.error(f"Failed to update historical data: {e}")
 

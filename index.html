@@ -106,7 +106,7 @@
     <div class="export-section">
         <h2>Historical Data Export</h2>
         <p>Download all archived weather snapshots for analysis and record-keeping.</p>
-        <button class="download-btn" onclick="downloadHistoricalData()">Download Historical Data (CSV)</button>
+        <button class="download-btn" onclick="downloadHistoricalData()">Download Historical Data (JSON)</button>
         <div class="export-info" id="export-info">Loading...</div>
     </div>
 
@@ -166,14 +166,14 @@
 
         async function downloadHistoricalData() {
             try {
-                const res = await fetch("historical_data.csv");
+                const res = await fetch("historical_data.json");
                 if (!res.ok) throw new Error("Failed to fetch historical data");
 
                 const blob = await res.blob();
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement("a");
                 a.href = url;
-                a.download = "historical_weather_data.csv";
+                a.download = "historical_weather_data.json";
                 document.body.appendChild(a);
                 a.click();
                 window.URL.revokeObjectURL(url);
