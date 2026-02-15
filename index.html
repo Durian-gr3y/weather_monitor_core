@@ -5,145 +5,559 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nigeria Weather Dashboard</title>
+    <!-- Modern Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        :root {
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --accent-blue: #eff6ff;
+            --border: #e2e8f0;
+            --ring: rgba(59, 130, 246, 0.5);
+
+            --risk-low: #22c55e;
+            --risk-moderate: #f59e0b;
+            --risk-high: #ef4444;
+
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+        }
+
+        .dark {
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-blue: #1e293b;
+            --border: #334155;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
-            padding: 20px;
-            background: #f0f2f5;
+            padding: 0;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.5;
         }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
+        h1,
+        h2,
+        h3 {
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
         }
 
-        #generated {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #555;
+        /* --- Navigation --- */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 5%;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .export-section {
-            text-align: center;
-            margin: 30px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-            max-width: 600px;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary);
         }
 
-        .export-section h2 {
-            margin-top: 0;
-            color: #333;
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .search-container {
+            position: relative;
+            display: none;
+            /* Hidden by default, shown on desktop */
+        }
+
+        @media (min-width: 768px) {
+            .search-container {
+                display: block;
+            }
+        }
+
+        .search-input {
+            padding: 0.6rem 1rem 0.6rem 2.5rem;
+            background: var(--bg-body);
+            border: 1px solid var(--border);
+            border-radius: 99px;
+            font-size: 0.875rem;
+            width: 250px;
+            color: var(--text-main);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px var(--ring);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.875rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-body);
+            color: var(--text-main);
+        }
+
+        /* --- Header --- */
+        header {
+            padding: 2.5rem 5% 1rem 5%;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .update-badge {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.4rem 0.75rem;
+            background: var(--border);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            color: var(--text-muted);
+        }
+
+        /* --- Export Banner --- */
+        .export-banner {
+            margin: 2rem 5%;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border-radius: var(--radius);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .export-banner {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+
+        .export-content {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            z-index: 1;
+        }
+
+        .export-icon-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border-radius: 12px;
+        }
+
+        .export-text h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .export-text p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 0.95rem;
+            max-width: 500px;
+        }
+
+        .export-btn-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.75rem;
+            z-index: 1;
         }
 
         .download-btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background: #007bff;
-            color: white;
+            background: white;
+            color: var(--primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
             text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background 0.3s;
-            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
             border: none;
-            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 1rem;
         }
 
         .download-btn:hover {
-            background: #0056b3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .export-info {
-            margin-top: 10px;
-            color: #666;
-            font-size: 14px;
+        .snapshot-timestamp {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        /* --- Grid --- */
+        main {
+            padding: 1rem 5% 4rem 5%;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* --- Card --- */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .location-info h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .location-info .region {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .weather-icon {
+            color: var(--text-muted);
+        }
+
+        .temp-display {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .temp-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .temp-unit {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .condition-text {
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .detail-row span {
+            font-weight: 600;
+            color: var(--text-main);
+            margin-left: auto;
+        }
+
+        .rain-footer {
+            margin-top: 0.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .rain-bar-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border);
+            background: var(--bg-card);
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .card {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-        }
-
-        .risk-low {
-            border-left: 5px solid green;
-        }
-
-        .risk-moderate {
-            border-left: 5px solid orange;
-        }
-
-        .risk-high {
-            border-left: 5px solid red;
-        }
-
-        .card h3 {
-            margin-top: 0;
-        }
-
-        .card p {
-            margin: 5px 0;
+            animation: fadeIn 0.4s ease forwards;
         }
     </style>
 </head>
 
 <body>
-    <h1>Nigeria Weather Dashboard</h1>
-    <div id="generated"></div>
+    <nav>
+        <div class="logo">
+            <i data-lucide="cloud"></i>
+            <span>Nigeria Weather</span>
+        </div>
+        <div class="nav-actions">
+            <div class="search-container">
+                <i data-lucide="search" class="search-icon" size="18"></i>
+                <input type="text" class="search-input" placeholder="Search city..." id="citySearch"
+                    oninput="filterWeather()">
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+                <i data-lucide="moon" id="themeIcon"></i>
+            </button>
+        </div>
+    </nav>
 
-    <!-- Historical Data Export Section -->
-    <div class="export-section">
-        <h2>Historical Data Export</h2>
-        <p>Download all archived weather snapshots for analysis and record-keeping.</p>
-        <button class="download-btn" onclick="downloadHistoricalData()">Download Historical Data (CSV)</button>
-        <div class="export-info" id="export-info">Loading...</div>
+    <header>
+        <h1>Dashboard Overview</h1>
+        <p class="subtitle">Real-time weather monitoring across major Nigerian cities.</p>
+        <div class="update-badge" id="generated">Last updated: Loading...</div>
+    </header>
+
+    <div class="export-banner">
+        <div class="export-content">
+            <div class="export-icon-box">
+                <i data-lucide="history" size="32"></i>
+            </div>
+            <div class="export-text">
+                <h2>Historical Data Export</h2>
+                <p>Download all archived weather snapshots for detailed analysis and record-keeping. Currently hosting
+                    <span id="snapshot-count">...</span> snapshots available for research purposes.</p>
+            </div>
+        </div>
+        <div class="export-btn-container">
+            <button class="download-btn" onclick="downloadHistoricalData()">
+                <i data-lucide="download" size="20"></i>
+                Download CSV Data
+            </button>
+            <span class="snapshot-timestamp" id="latest-snapshot">Latest snapshot: ...</span>
+        </div>
     </div>
 
-    <div class="grid" id="weather-grid"></div>
+    <main>
+        <div class="grid" id="weather-grid">
+            <!-- Cards will be injected here -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Nigeria Weather Services. All data is for reference purposes only.</p>
+    </footer>
 
     <script>
+        let weatherData = [];
+
+        function toggleTheme() {
+            const body = document.body;
+            body.classList.toggle('dark');
+            const isDark = body.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+            const icon = document.getElementById('themeIcon');
+            icon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+            lucide.createIcons();
+        }
+
+        // Apply saved theme
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark');
+            document.getElementById('themeIcon').setAttribute('data-lucide', 'sun');
+        }
+
         async function loadWeather() {
             try {
                 const res = await fetch("weather_data.json");
                 const data = await res.json();
+                weatherData = data.locations;
 
                 // Display last update
                 const generatedDiv = document.getElementById("generated");
-                generatedDiv.textContent = "Last updated: " + data.generated_at;
+                const date = new Date(data.generated_at);
+                generatedDiv.textContent = "Last updated: " + date.toLocaleString();
 
-                // Sort by rain_probability descending
-                data.locations.sort((a, b) => b.rain_probability - a.rain_probability);
-
-                const grid = document.getElementById("weather-grid");
-                grid.innerHTML = ""; // Clear old data
-
-                data.locations.forEach(loc => {
-                    const div = document.createElement("div");
-                    div.className = "card risk-" + loc.risk.toLowerCase();
-                    div.innerHTML = `
-            <h3>${loc.place}</h3>
-            <p><strong>${loc.temp}°C</strong> | ${loc.description}</p>
-            <p>Feels like: ${loc.feels_like}°C</p>
-            <p>Humidity: ${loc.humidity}% | Wind: ${loc.wind_speed} m/s | Clouds: ${loc.clouds}%</p>
-            <p>Rain: ${loc.rain_probability}% (${loc.risk})</p>
-          `;
-                    grid.appendChild(div);
-                });
+                renderWeather(weatherData);
             } catch (err) {
-                document.getElementById("weather-grid").textContent = "Failed to load weather data.";
+                document.getElementById("weather-grid").innerHTML = "<p>Failed to load weather data.</p>";
                 console.error(err);
             }
+        }
+
+        function filterWeather() {
+            const query = document.getElementById('citySearch').value.toLowerCase();
+            const filtered = weatherData.filter(loc =>
+                loc.place.toLowerCase().includes(query)
+            );
+            renderWeather(filtered);
+        }
+
+        function renderWeather(locations) {
+            // Sort by rain_probability descending
+            locations.sort((a, b) => b.rain_probability - a.rain_probability);
+
+            const grid = document.getElementById("weather-grid");
+            grid.innerHTML = "";
+
+            if (locations.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 4rem; color: var(--text-muted);">No cities found matching your search.</div>';
+                return;
+            }
+
+            locations.forEach((loc, index) => {
+                const parts = loc.place.split(',');
+                const city = parts[0];
+                const region = parts.slice(1).join(',') || 'Nigeria';
+
+                const div = document.createElement("div");
+                div.className = "card";
+                div.style.animationDelay = (index * 0.05) + 's';
+
+                // Determine icon based on description
+                let icon = 'cloud';
+                const desc = loc.description.toLowerCase();
+                if (desc.includes('clear')) icon = 'sun';
+                else if (desc.includes('rain')) icon = 'cloud-rain';
+                else if (desc.includes('cloud')) icon = 'cloud';
+                else if (desc.includes('storm')) icon = 'cloud-lightning';
+
+                const riskColor = `var(--risk-${loc.risk.toLowerCase()})`;
+
+                div.innerHTML = `
+                    <div class="card-header">
+                        <div class="location-info">
+                            <h3>${city}</h3>
+                            <div class="region">${region}</div>
+                        </div>
+                        <i data-lucide="${icon}" class="weather-icon"></i>
+                    </div>
+                    
+                    <div class="temp-display">
+                        <span class="temp-value">${loc.temp}</span>
+                        <span class="temp-unit">°C</span>
+                        <div class="condition-text">${loc.description}</div>
+                    </div>
+
+                    <div class="detail-row">
+                        <i data-lucide="thermometer" size="16"></i>
+                        Feels like
+                        <span>${loc.feels_like}°C</span>
+                    </div>
+                    <div class="detail-row">
+                        <i data-lucide="droplets" size="16"></i>
+                        Humidity
+                        <span>${loc.humidity}%</span>
+                    </div>
+                    <div class="detail-row">
+                        <i data-lucide="wind" size="16"></i>
+                        Wind
+                        <span>${loc.wind_speed} m/s</span>
+                    </div>
+
+                    <div class="rain-footer">
+                        <div class="rain-bar-container" style="color: ${riskColor}">
+                            <i data-lucide="cloud-rain" size="16"></i>
+                            Rain: ${loc.rain_probability}% (${loc.risk})
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+            lucide.createIcons();
         }
 
         async function loadHistoricalInfo() {
@@ -154,20 +568,21 @@
                 if (Array.isArray(data) && data.length > 0) {
                     const count = data.length;
                     const latest = data[data.length - 1].generated_at;
-                    document.getElementById("export-info").textContent =
-                        `${count} snapshot${count !== 1 ? 's' : ''} available | Latest: ${new Date(latest).toLocaleString()}`;
+                    const latestDate = new Date(latest);
+
+                    document.getElementById("snapshot-count").textContent = count;
+                    document.getElementById("latest-snapshot").textContent =
+                        `Latest snapshot: ${latestDate.toLocaleDateString()}, ${latestDate.toLocaleTimeString()}`;
                 } else {
-                    document.getElementById("export-info").textContent = "No historical data available yet";
+                    document.getElementById("snapshot-count").textContent = "0";
                 }
             } catch (err) {
-                document.getElementById("export-info").textContent = "Historical data not yet available";
+                console.error("Historical data info load failed");
             }
         }
 
         function downloadHistoricalData() {
             try {
-                // Use a direct link approach which is more robust for local file access (file://)
-                // than using fetch() which might be blocked or restricted.
                 const a = document.createElement("a");
                 a.href = "historical_data.csv";
                 a.download = "historical_weather_data.csv";
@@ -181,8 +596,12 @@
             }
         }
 
-        loadWeather();
-        loadHistoricalInfo();
+        // Initialize script
+        window.addEventListener('load', () => {
+            loadWeather();
+            loadHistoricalInfo();
+            lucide.createIcons();
+        });
     </script>
 </body>
 
