@@ -99,9 +99,10 @@ async def get_city_weather(city: str):
     forecast = get_open_meteo_data(loc["lat"], loc["lon"])
     baseline = get_nasa_power_baseline(loc["lat"], loc["lon"])
     
-    if not forecast:
-        logger.error(f"Open-Meteo failure for {city}")
-        raise HTTPException(status_code=500, detail=f"Open-Meteo API failed for {city}")
+    if not forecast or "error" in forecast:
+        err_msg = forecast.get("error") if forecast else "Unknown error"
+        logger.error(f"Open-Meteo failure for {city}: {err_msg}")
+        raise HTTPException(status_code=500, detail=f"Open-Meteo API failed for {city}: {err_msg}")
     
     if not baseline:
         logger.warning(f"NASA POWER baseline unavailable for {city}, using fallback.")

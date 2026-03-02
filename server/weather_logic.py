@@ -100,5 +100,4 @@ def get_open_meteo_data(lat, lon):
         response.raise_for_status()
         return response.json()
     except Exception as e:
-        print(f"Error fetching Open-Meteo data: {e}")
-        return None
+        return {"error": str(e)}
