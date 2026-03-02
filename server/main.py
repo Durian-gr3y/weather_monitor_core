@@ -4,14 +4,14 @@ from pydantic import BaseModel
 from datetime import datetime, timezone
 import os
 
-from .weather_logic import (
+from weather_logic import (
     get_open_meteo_data, 
     get_nasa_power_baseline, 
     compute_heat_index, 
     evaluate_pest_risk,
     detect_dry_spells
 )
-from .database import supabase, get_locations, insert_weather_snapshot
+from database import supabase, get_locations, insert_weather_snapshot
 
 app = FastAPI(title="Nigeria Weather Monitor API")
 
