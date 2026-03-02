@@ -52,6 +52,28 @@ export default function Dashboard() {
     );
   }
 
+  if (!data || data.detail) {
+    return (
+      <div className="flex flex-col items-center justify-center h-[60vh] gap-6 text-center">
+        <div className="p-4 bg-red-500/10 rounded-full">
+          <AlertTriangle className="text-red-400 w-12 h-12" />
+        </div>
+        <div>
+          <h3 className="text-xl font-bold mb-2">Service Unavailable</h3>
+          <p className="text-slate-400 max-w-xs mx-auto">
+            {data?.detail || "We couldn't retrieve weather analytics for Nigeria at this moment."}
+          </p>
+        </div>
+        <button
+          onClick={() => window.location.reload()}
+          className="px-8 py-3 bg-blue-600 hover:bg-blue-500 rounded-xl font-bold transition-all shadow-lg shadow-blue-900/40"
+        >
+          Retry Connection
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">

@@ -8,7 +8,10 @@ export default function HistoricalData() {
 
     React.useEffect(() => {
         fetch('https://weather-monitor-core-1.onrender.com/history/Lagos')
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error('API Error');
+                return res.json();
+            })
             .then(setHistory)
             .catch(console.error);
     }, []);

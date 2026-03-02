@@ -20,7 +20,7 @@ app = FastAPI(title="Nigeria Weather Monitor API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], # In production, replace with your Vercel URL
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -45,8 +45,10 @@ DEFAULT_LOCATIONS = [
     {"name": "Lokoja", "lat": 7.8023, "lon": 6.7433},
     {"name": "Ilorin", "lat": 8.4799, "lon": 4.5418},
     {"name": "Ikeja", "lat": 6.5967, "lon": 3.3421},
+    {"name": "Lagos", "lat": 6.5244, "lon": 3.3792},
     {"name": "Owerri", "lat": 5.485, "lon": 7.035},
     {"name": "Abeokuta", "lat": 7.1604, "lon": 3.3483},
+    {"name": "Sagamu", "lat": 6.8333, "lon": 3.65},
     {"name": "Akure", "lat": 7.2571, "lon": 5.2058},
     {"name": "Osogbo", "lat": 7.7827, "lon": 4.5418},
     {"name": "Jos", "lat": 9.8965, "lon": 8.8583},

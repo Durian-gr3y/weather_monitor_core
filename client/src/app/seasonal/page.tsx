@@ -21,7 +21,10 @@ export default function SeasonalOutlook() {
 
     React.useEffect(() => {
         fetch('https://weather-monitor-core-1.onrender.com/weather/Lagos')
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error('API Error');
+                return res.json();
+            })
             .then(setData)
             .catch(console.error);
     }, []);
