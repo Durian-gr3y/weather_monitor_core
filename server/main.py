@@ -14,6 +14,10 @@ from weather_logic import (
 )
 from database import supabase, get_locations, insert_weather_snapshot
 
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 app = FastAPI(title="Nigeria Weather Monitor API")
 
 # Add CORS Middleware
@@ -70,7 +74,18 @@ class WeatherResponse(BaseModel):
 
 @app.get("/")
 def read_root():
-    return {"status": "Nigeria Weather Monitor API Active"}
+    return {"status": "Nigeria Weather Monitor API Active", "supabase_connected": supabase is not None}
+
+@app.get("/debug")
+def get_debug_info():
+    return {
+        "env_vars": {
+            "SUPABASE_URL": "SET" if os.environ.get("SUPABASE_URL") else "MISSING",
+            "SUPABASE_KEY": "SET" if os.environ.get("SUPABASE_SERVICE_ROLE_KEY") else "MISSING"
+        },
+        "locations_count": len(DEFAULT_LOCATIONS),
+        "supabase": "Connected" if supabase else "Disconnected"
+    }
 
 @app.get("/weather/{city}")
 async def get_city_weather(city: str):
@@ -80,11 +95,17 @@ async def get_city_weather(city: str):
         raise HTTPException(status_code=404, detail="City not found in Nigeria MVP list")
     
     # Fetch data
+    logger.info(f"Fetching weather for {city} at {loc['lat']}, {loc['lon']}")
     forecast = get_open_meteo_data(loc["lat"], loc["lon"])
     baseline = get_nasa_power_baseline(loc["lat"], loc["lon"])
     
     if not forecast:
-        raise HTTPException(status_code=500, detail="Failed to fetch forecast data")
+        logger.error(f"Open-Meteo failure for {city}")
+        raise HTTPException(status_code=500, detail=f"Open-Meteo API failed for {city}")
+    
+    if not baseline:
+        logger.warning(f"NASA POWER baseline unavailable for {city}, using fallback.")
+        # We can continue without baseline for now, or use a default
     
     # Extract current (first hour) values
     current_temp = forecast['hourly']['temperature_2m'][0]
