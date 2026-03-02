@@ -2,13 +2,32 @@ import requests
 from datetime import datetime, timedelta
 import math
 
+# In-memory cache to stay within Open-Meteo & NASA POWER rate limits
+# Format: { "api_name:lat:lon": { "data": ..., "expires": datetime } }
+WEATHER_CACHE = {}
+CACHE_TTL_MINUTES = 30
+
+def get_cached_data(key):
+    entry = WEATHER_CACHE.get(key)
+    if entry and datetime.now() < entry['expires']:
+        return entry['data']
+    return None
+
+def set_cached_data(key, data):
+    WEATHER_CACHE[key] = {
+        "data": data,
+        "expires": datetime.now() + timedelta(minutes=CACHE_TTL_MINUTES)
+    }
+
 def get_nasa_power_baseline(lat, lon):
     """
     Fetch 10-year historical average for rainfall and temperature from NASA POWER.
     Returns a dictionary with monthly averages.
     """
-    # NASA POWER API for climatology (30-year or user-defined range)
-    # Using a simplified approach for the MVP: fetching monthly averages
+    cache_key = f"nasa:{lat}:{lon}"
+    cached = get_cached_data(cache_key)
+    if cached: return cached
+
     url = "https://power.larc.nasa.gov/api/temporal/climatology/point"
     params = {
         "parameters": "PRECTOTCORR,T2M",
@@ -22,13 +41,13 @@ def get_nasa_power_baseline(lat, lon):
         response.raise_for_status()
         data = response.json()
         
-        # PRECTOTCORR: Precipitation (mm/day)
-        # T2M: Temperature at 2 Meters (C)
         base_data = data['properties']['parameter']
-        return {
+        result = {
             "monthly_rain": base_data['PRECTOTCORR'],
             "monthly_temp": base_data['T2M']
         }
+        set_cached_data(cache_key, result)
+        return result
     except Exception as e:
         print(f"Error fetching NASA POWER data: {e}")
         return None
@@ -86,6 +105,10 @@ def detect_dry_spells(hourly_data):
 
 def get_open_meteo_data(lat, lon):
     """Fetch 16-day forecast and hourly metrics from Open-Meteo."""
+    cache_key = f"meteo:{lat}:{lon}"
+    cached = get_cached_data(cache_key)
+    if cached: return cached
+
     url = "https://api.open-meteo.com/v1/forecast"
     params = {
         "latitude": lat,
@@ -98,6 +121,8 @@ def get_open_meteo_data(lat, lon):
     try:
         response = requests.get(url, params=params, timeout=15)
         response.raise_for_status()
-        return response.json()
+        result = response.json()
+        set_cached_data(cache_key, result)
+        return result
     except Exception as e:
         return {"error": str(e)}
