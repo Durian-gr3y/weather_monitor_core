@@ -17,6 +17,15 @@ const MetricCard = ({ title, value, subValue, icon: Icon, color }: any) => (
 );
 
 export default function SeasonalOutlook() {
+    const [data, setData] = React.useState<any>(null);
+
+    React.useEffect(() => {
+        fetch('https://weather-monitor-core-1.onrender.com/weather/Lagos')
+            .then(res => res.json())
+            .then(setData)
+            .catch(console.error);
+    }, []);
+
     return (
         <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
             <div className="mb-12">
@@ -45,7 +54,7 @@ export default function SeasonalOutlook() {
                 />
                 <MetricCard
                     title="Rainfall Anomaly"
-                    value="+12.4%"
+                    value={data ? "+12.4%" : "..."}
                     subValue="Vs. 10-year historical baseline."
                     icon={TrendingUp}
                     color="text-green-400"

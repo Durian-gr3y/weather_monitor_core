@@ -4,7 +4,21 @@ import React from 'react';
 import { History, Download, FileSpreadsheet, Table } from 'lucide-react';
 
 export default function HistoricalData() {
-    const mockHistory = [
+    const [history, setHistory] = React.useState<any[]>([]);
+
+    React.useEffect(() => {
+        fetch('https://weather-monitor-core-1.onrender.com/history/Lagos')
+            .then(res => res.json())
+            .then(setHistory)
+            .catch(console.error);
+    }, []);
+
+    const displayHistory = history.length > 0 ? history.map(h => ({
+        date: new Date(h.timestamp).toLocaleDateString(),
+        temp: `${h.temperature}°C`,
+        rain: `${h.rain_probability}%`,
+        risk: h.pest_risk_level || "LOW"
+    })) : [
         { date: "2026-03-01", temp: "29.4°C", rain: "12mm", risk: "LOW" },
         { date: "2026-02-28", temp: "30.1°C", rain: "0mm", risk: "LOW" },
         { date: "2026-02-27", temp: "28.9°C", rain: "45mm", risk: "MODERATE" },
@@ -45,7 +59,7 @@ export default function HistoricalData() {
                                 </tr>
                             </thead>
                             <tbody className="text-sm divide-y divide-white/5">
-                                {mockHistory.map((row, i) => (
+                                {displayHistory.map((row, i) => (
                                     <tr key={i} className="hover:bg-white/5 transition-colors">
                                         <td className="px-6 py-4 text-slate-300 font-mono">{row.date}</td>
                                         <td className="px-6 py-4">{row.temp}</td>

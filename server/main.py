@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from typing import List, Optional
 from pydantic import BaseModel
 from datetime import datetime, timezone
@@ -14,6 +15,15 @@ from weather_logic import (
 from database import supabase, get_locations, insert_weather_snapshot
 
 app = FastAPI(title="Nigeria Weather Monitor API")
+
+# Add CORS Middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # In production, replace with your Vercel URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Default locations for the MVP (from weather_monitor.py)
 DEFAULT_LOCATIONS = [
@@ -114,3 +124,26 @@ async def get_overview():
                 "risk": "HIGH" if rain > 50 else "LOW"
             })
     return summary
+
+@app.get("/history/{city}")
+async def get_city_history(city: str):
+    """Fetch historical snapshots from Supabase for a specific city."""
+    if not supabase:
+        raise HTTPException(status_code=500, detail="Supabase not connected")
+    
+    # First find the location ID
+    loc_res = supabase.table("locations").select("id").eq("name", city).execute()
+    if not loc_res.data:
+        raise HTTPException(status_code=404, detail="Location not found in database")
+    
+    loc_id = loc_res.data[0]['id']
+    
+    # Fetch snapshots
+    history_res = supabase.table("weather_snapshots") \
+        .select("*") \
+        .eq("location_id", loc_id) \
+        .order("timestamp", desc=True) \
+        .limit(30) \
+        .execute()
+    
+    return history_res.data

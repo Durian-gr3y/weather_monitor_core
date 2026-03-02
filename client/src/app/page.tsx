@@ -20,36 +20,22 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Mocking the full response with forecast points
-        const forecastDates = Array.from({ length: 16 }, (_, i) => {
-          const d = new Date();
-          d.setDate(d.getDate() + i);
-          return d.toISOString().split('T')[0];
-        });
+        const response = await fetch('https://weather-monitor-core-1.onrender.com/weather/Lagos');
+        if (!response.ok) throw new Error('Failed to fetch from API');
+        const apiData = await response.json();
 
-        const mockForecast = forecastDates.map(date => ({
-          date,
-          temp_max: 28 + Math.random() * 5,
-          precip_sum: Math.random() * 15
+        // Transform the 16-day forecast for the chart
+        const transformedForecast = apiData.forecast_16d.time.map((time: string, index: number) => ({
+          date: time,
+          temp_max: apiData.forecast_16d.temperature_2m_max[index],
+          precip_sum: apiData.forecast_16d.precipitation_sum[index]
         }));
 
-        const mockData = {
-          location: "Lagos",
-          temp: 29.5,
-          humidity: 78,
-          rain_sum_24h: 12.4,
-          heat_index: 34.2,
-          pest_risk: "MODERATE",
-          flood_risk: false,
-          soil_moisture: 0.28,
-          risk_level: "MODERATE",
-          forecast: mockForecast
-        };
-
-        setTimeout(() => {
-          setData(mockData);
-          setLoading(false);
-        }, 800);
+        setData({
+          ...apiData,
+          forecast: transformedForecast
+        });
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
         setLoading(false);
