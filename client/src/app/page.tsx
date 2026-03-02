@@ -12,6 +12,12 @@ import {
 } from 'lucide-react';
 import RiskCard from '@/components/RiskCard';
 import WeatherChart from '@/components/WeatherChart';
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 export default function Dashboard() {
   const [data, setData] = useState<any>(null);
@@ -151,19 +157,31 @@ export default function Dashboard() {
             Vulnerability Alerts
           </h3>
           <div className="space-y-4 flex-1">
-            <div className="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl relative overflow-hidden group">
+            <div className={cn("p-4 border rounded-xl relative overflow-hidden group",
+              data?.dry_spell_days > 3 ? "bg-yellow-500/10 border-yellow-500/20" : "bg-green-500/10 border-green-500/20")}>
               <div className="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
                 <CloudRain size={40} />
               </div>
-              <h4 className="text-yellow-400 font-black text-[10px] mb-1 uppercase tracking-widest">Dry Spell Alert</h4>
-              <p className="text-xs text-slate-200 leading-relaxed font-medium">Lagos area: 4 consecutive dry days detected. Soil tension increasing.</p>
+              <h4 className={cn("font-black text-[10px] mb-1 uppercase tracking-widest",
+                data?.dry_spell_days > 3 ? "text-yellow-400" : "text-green-400")}>
+                Dry Spell: {data?.dry_spell_days > 3 ? "ALERT" : "STABLE"}
+              </h4>
+              <p className="text-xs text-slate-200 leading-relaxed font-medium">
+                {data?.dry_spell_days} consecutive dry days detected. {data?.dry_spell_days > 3 ? "Soil tension increasing." : "Soil moisture levels within normal range."}
+              </p>
             </div>
-            <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-xl relative overflow-hidden group">
+            <div className={cn("p-4 border rounded-xl relative overflow-hidden group",
+              data?.flood_risk ? "bg-red-500/10 border-red-500/20" : "bg-green-500/10 border-green-500/20")}>
               <div className="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
                 <AlertTriangle size={40} />
               </div>
-              <h4 className="text-green-400 font-black text-[10px] mb-1 uppercase tracking-widest">Flood Risk: Safe</h4>
-              <p className="text-xs text-slate-200 leading-relaxed font-medium">Predicted rainfall intensities remain below threshold levels.</p>
+              <h4 className={cn("font-black text-[10px] mb-1 uppercase tracking-widest",
+                data?.flood_risk ? "text-red-400" : "text-green-400")}>
+                Flood Risk: {data?.flood_risk ? "CRITICAL" : "SAFE"}
+              </h4>
+              <p className="text-xs text-slate-200 leading-relaxed font-medium">
+                {data?.flood_risk ? "Intense rainfall detected. High risk of flash flooding." : "Predicted rainfall intensities remain below threshold levels."}
+              </p>
             </div>
           </div>
           <button className="mt-8 py-3 w-full glass-card bg-white/5 hover:bg-white/10 text-xs font-bold uppercase tracking-widest transition-colors">

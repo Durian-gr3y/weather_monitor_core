@@ -96,6 +96,7 @@ async def get_city_weather(city: str):
     hi = compute_heat_index(current_temp, humidity)
     pest = evaluate_pest_risk(precip_sum, current_temp)
     flood = precip_sum >= 50
+    dry_days = detect_dry_spells(forecast['hourly'])
     
     return {
         "location": loc["name"],
@@ -105,6 +106,7 @@ async def get_city_weather(city: str):
         "heat_index": hi,
         "pest_risk": pest,
         "flood_risk": flood,
+        "dry_spell_days": dry_days,
         "soil_moisture": soil_m,
         "forecast_16d": forecast['daily']
     }
