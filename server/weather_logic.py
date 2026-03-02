@@ -1,6 +1,4 @@
-import requests
 from datetime import datetime, timedelta
-import pandas as pd
 import math
 
 def get_nasa_power_baseline(lat, lon):
@@ -57,20 +55,28 @@ def evaluate_pest_risk(recent_rain_sum, avg_temp):
         return "MODERATE"
     return "LOW"
 
-def detect_dry_spells(hourly_precip):
+def detect_dry_spells(hourly_data):
     """
     Detect dry spells: sequence of days with < 1mm rain.
     Returns count of consecutive dry days.
     """
-    # Group by day
-    df = pd.DataFrame(hourly_precip)
-    df['date'] = pd.to_datetime(df['time']).dt.date
-    daily_precip = df.groupby('date')['precipitation'].sum()
+    # hourly_data has 'time' and 'precipitation' keys
+    times = hourly_data.get('time', [])
+    precip = hourly_data.get('precipitation', [])
+    
+    # Process hourly into daily sums
+    daily_totals = {}
+    for t, p in zip(times, precip):
+        date_str = t.split('T')[0]
+        daily_totals[date_str] = daily_totals.get(date_str, 0) + p
+    
+    # Sort dates to ensure sequence
+    sorted_dates = sorted(daily_totals.keys())
     
     consecutive_dry = 0
     max_dry = 0
-    for rain in daily_precip:
-        if rain < 1.0:
+    for date in sorted_dates:
+        if daily_totals[date] < 1.0:
             consecutive_dry += 1
             max_dry = max(max_dry, consecutive_dry)
         else:

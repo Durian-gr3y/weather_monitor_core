@@ -27,7 +27,16 @@ export default function Dashboard() {
     const fetchData = async () => {
       try {
         const response = await fetch('https://weather-monitor-core-1.onrender.com/weather/Lagos');
-        if (!response.ok) throw new Error('Failed to fetch from API');
+        if (!response.ok) {
+          try {
+            const errData = await response.json();
+            setData(errData);
+          } catch (e) {
+            setData({ detail: `Error ${response.status}: ${response.statusText}` });
+          }
+          setLoading(false);
+          return;
+        }
         const apiData = await response.json();
 
         // Transform the 16-day forecast for the chart

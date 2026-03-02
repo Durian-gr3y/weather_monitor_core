@@ -6,4 +6,4 @@ pydantic-settings
 python-dotenv
 supabase
 geopy
-pandas
+# Removed pandas to save memory on Render free tier
