@@ -130,7 +130,8 @@ async def get_city_weather(city: str):
         "flood_risk": flood,
         "dry_spell_days": dry_days,
         "soil_moisture": soil_m,
-        "forecast_16d": forecast['daily']
+        "forecast_16d": forecast['daily'],
+        "baseline": baseline
     }
 
 @app.get("/overview")

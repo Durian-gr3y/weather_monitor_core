@@ -57,7 +57,7 @@ export default function SeasonalOutlook() {
                 />
                 <MetricCard
                     title="Rainfall Anomaly"
-                    value={data ? "+12.4%" : "..."}
+                    value={data?.baseline?.monthly_rain ? `+${((data.rain_sum_24h / (data.baseline.monthly_rain.JAN || 3.1)) * 10).toFixed(1)}%` : "..."}
                     subValue="Vs. 10-year historical baseline."
                     icon={TrendingUp}
                     color="text-green-400"

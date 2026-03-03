@@ -18,9 +18,9 @@ export default function HistoricalData() {
 
     const displayHistory = history.length > 0 ? history.map(h => ({
         date: new Date(h.timestamp).toLocaleDateString(),
-        temp: `${h.temperature}°C`,
-        rain: `${h.rain_probability}%`,
-        risk: h.pest_risk_level || "LOW"
+        temp: `${h.temp}°C`,
+        rain: `${h.precip_24h}mm`,
+        risk: h.pest_risk || "LOW"
     })) : [
         { date: "2026-03-01", temp: "29.4°C", rain: "12mm", risk: "LOW" },
         { date: "2026-02-28", temp: "30.1°C", rain: "0mm", risk: "LOW" },
