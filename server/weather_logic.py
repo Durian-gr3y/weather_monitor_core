@@ -103,21 +103,6 @@ def detect_dry_spells(hourly_data):
             consecutive_dry = 0
     return max_dry
 
-def get_open_weather_data(lat, lon):
-    """Fetch current weather from OpenWeatherMap as a fallback."""
-    api_key = os.environ.get("OPENWEATHER_API_KEY")
-    if not api_key: return {"error": "No OpenWeather key"}
-    
-    url = "https://api.openweathermap.org/data/2.5/weather"
-    params = {"lat": lat, "lon": lon, "appid": api_key, "units": "metric"}
-    try:
-        headers = {'User-Agent': 'NigeriaWeatherMonitor/1.0'}
-        response = requests.get(url, params=params, headers=headers, timeout=10)
-        response.raise_for_status()
-        return response.json()
-    except Exception as e:
-        return {"error": str(e)}
-
 def get_open_meteo_data(lat, lon):
     """Fetch 16-day forecast and hourly metrics from Open-Meteo."""
     cache_key = f"meteo:{lat}:{lon}"
