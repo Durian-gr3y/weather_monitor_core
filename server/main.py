@@ -7,6 +7,7 @@ import os
 
 from weather_logic import (
     get_open_meteo_data, 
+    get_open_weather_data,
     get_nasa_power_baseline, 
     compute_heat_index, 
     evaluate_pest_risk,
@@ -81,7 +82,8 @@ def get_debug_info():
     return {
         "env_vars": {
             "SUPABASE_URL": "SET" if os.environ.get("SUPABASE_URL") else "MISSING",
-            "SUPABASE_KEY": "SET" if os.environ.get("SUPABASE_SERVICE_ROLE_KEY") else "MISSING"
+            "SUPABASE_KEY": "SET" if os.environ.get("SUPABASE_SERVICE_ROLE_KEY") else "MISSING",
+            "OPENWEATHER_KEY": "SET" if os.environ.get("OPENWEATHER_API_KEY") else "MISSING"
         },
         "locations_count": len(DEFAULT_LOCATIONS),
         "supabase": "Connected" if supabase else "Disconnected"
@@ -99,6 +101,28 @@ async def get_city_weather(city: str):
     forecast = get_open_meteo_data(loc["lat"], loc["lon"])
     baseline = get_nasa_power_baseline(loc["lat"], loc["lon"])
     
+    # If Open-Meteo fails (429), try OpenWeather if key exists
+    if (not forecast or "error" in forecast) and os.environ.get("OPENWEATHER_API_KEY"):
+        logger.warning(f"Open-Meteo failed, attempting OpenWeather fallback for {city}")
+        ow_data = get_open_weather_data(loc["lat"], loc["lon"])
+        if ow_data and "error" not in ow_data:
+            # Construct a minimal forecast object to keep the frontend happy
+            # Not a full 16-day forecast, but better than a crash
+            return {
+                "location": loc["name"],
+                "temp": ow_data["main"]["temp"],
+                "humidity": ow_data["main"]["humidity"],
+                "rain_sum_24h": ow_data.get("rain", {}).get("1h", 0) * 24, # Approximation
+                "heat_index": compute_heat_index(ow_data["main"]["temp"], ow_data["main"]["humidity"]),
+                "pest_risk": "MODERATE", # Fallback
+                "flood_risk": False,
+                "dry_spell_days": 0,
+                "soil_moisture": 0.3,
+                "forecast_16d": None,
+                "baseline": baseline,
+                "source": "OpenWeather Fallback"
+            }
+
     if not forecast or "error" in forecast:
         err_msg = forecast.get("error") if forecast else "Unknown error"
         logger.error(f"Open-Meteo failure for {city}: {err_msg}")
