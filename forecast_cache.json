@@ -1,190 +1,190 @@
 {
   "Umuahia, Abia, Nigeria": {
-    "timestamp": 1776078421.6610634,
+    "timestamp": 1776092796.4439392,
     "data": {
-      "max_rain_prob": 45,
+      "max_rain_prob": 50,
       "risk_level": "MODERATE"
     }
   },
   "Uyo, Akwa Ibom, Nigeria": {
-    "timestamp": 1776078421.836344,
+    "timestamp": 1776092796.5872586,
     "data": {
-      "max_rain_prob": 45,
-      "risk_level": "MODERATE"
+      "max_rain_prob": 36,
+      "risk_level": "LOW"
     }
   },
   "Yola, Adamawa, Nigeria": {
-    "timestamp": 1776078422.0077367,
+    "timestamp": 1776092796.7272754,
     "data": {
       "max_rain_prob": 0,
       "risk_level": "LOW"
     }
   },
   "Awka, Anambra, Nigeria": {
-    "timestamp": 1776078422.2336855,
+    "timestamp": 1776092796.8713305,
     "data": {
-      "max_rain_prob": 74,
-      "risk_level": "HIGH"
+      "max_rain_prob": 55,
+      "risk_level": "MODERATE"
     }
   },
   "Yenagoa, Bayelsa, Nigeria": {
-    "timestamp": 1776078422.4301589,
+    "timestamp": 1776092797.0187888,
     "data": {
-      "max_rain_prob": 80,
-      "risk_level": "HIGH"
+      "max_rain_prob": 36,
+      "risk_level": "LOW"
     }
   },
   "Makurdi, Benue, Nigeria": {
-    "timestamp": 1776078422.6097283,
+    "timestamp": 1776092797.1627293,
     "data": {
       "max_rain_prob": 0,
       "risk_level": "LOW"
     }
   },
   "Calabar, Cross River, Nigeria": {
-    "timestamp": 1776078422.778094,
+    "timestamp": 1776092797.3186896,
     "data": {
-      "max_rain_prob": 50,
-      "risk_level": "MODERATE"
+      "max_rain_prob": 35,
+      "risk_level": "LOW"
     }
   },
   "Asaba, Delta, Nigeria": {
-    "timestamp": 1776078422.9511993,
+    "timestamp": 1776092797.4675457,
     "data": {
-      "max_rain_prob": 70,
-      "risk_level": "HIGH"
+      "max_rain_prob": 42,
+      "risk_level": "MODERATE"
     }
   },
   "Benin City, Edo, Nigeria": {
-    "timestamp": 1776078423.121425,
+    "timestamp": 1776092797.6089115,
     "data": {
-      "max_rain_prob": 85,
-      "risk_level": "HIGH"
+      "max_rain_prob": 64,
+      "risk_level": "MODERATE"
     }
   },
   "Ado Ekiti, Ekiti, Nigeria": {
-    "timestamp": 1776078423.2987869,
+    "timestamp": 1776092797.7631083,
     "data": {
-      "max_rain_prob": 0,
+      "max_rain_prob": 14,
       "risk_level": "LOW"
     }
   },
   "Enugu, Enugu, Nigeria": {
-    "timestamp": 1776078423.5132155,
+    "timestamp": 1776092797.8998027,
     "data": {
-      "max_rain_prob": 55,
+      "max_rain_prob": 44,
       "risk_level": "MODERATE"
     }
   },
   "Dutse, Jigawa, Nigeria": {
-    "timestamp": 1776078423.6772847,
+    "timestamp": 1776092798.042973,
     "data": {
       "max_rain_prob": 0,
       "risk_level": "LOW"
     }
   },
   "Kaduna, Kaduna, Nigeria": {
-    "timestamp": 1776078423.8602974,
+    "timestamp": 1776092798.1782935,
     "data": {
       "max_rain_prob": 0,
       "risk_level": "LOW"
     }
   },
   "Kano, Kano, Nigeria": {
-    "timestamp": 1776078424.038713,
+    "timestamp": 1776092798.3244424,
     "data": {
       "max_rain_prob": 0,
       "risk_level": "LOW"
     }
   },
   "Birnin Kebbi, Kebbi, Nigeria": {
-    "timestamp": 1776078424.2675688,
+    "timestamp": 1776092798.4606855,
     "data": {
       "max_rain_prob": 0,
       "risk_level": "LOW"
     }
   },
   "Lokoja, Kogi, Nigeria": {
-    "timestamp": 1776078424.4393144,
+    "timestamp": 1776092798.6170049,
     "data": {
       "max_rain_prob": 0,
       "risk_level": "LOW"
     }
   },
   "Ilorin, Kwara, Nigeria": {
-    "timestamp": 1776078424.6068122,
+    "timestamp": 1776092798.771251,
     "data": {
       "max_rain_prob": 0,
       "risk_level": "LOW"
     }
   },
   "Ikeja, Lagos, Nigeria": {
-    "timestamp": 1776078424.7754002,
+    "timestamp": 1776092798.9153488,
     "data": {
-      "max_rain_prob": 43,
+      "max_rain_prob": 58,
       "risk_level": "MODERATE"
     }
   },
   "Owerri, Imo, Nigeria": {
-    "timestamp": 1776078424.9414434,
+    "timestamp": 1776092799.0749629,
     "data": {
-      "max_rain_prob": 78,
-      "risk_level": "HIGH"
+      "max_rain_prob": 33,
+      "risk_level": "LOW"
     }
   },
   "Abeokuta, Ogun, Nigeria": {
-    "timestamp": 1776078425.1391227,
+    "timestamp": 1776092799.2139704,
     "data": {
-      "max_rain_prob": 26,
+      "max_rain_prob": 27,
       "risk_level": "LOW"
     }
   },
   "Sagamu, Ogun State, Nigeria": {
-    "timestamp": 1776078425.389977,
+    "timestamp": 1776092799.3709013,
+    "data": {
+      "max_rain_prob": 45,
+      "risk_level": "MODERATE"
+    }
+  },
+  "Akure, Ondo, Nigeria": {
+    "timestamp": 1776092799.537626,
     "data": {
       "max_rain_prob": 28,
       "risk_level": "LOW"
     }
   },
-  "Akure, Ondo, Nigeria": {
-    "timestamp": 1776078425.6280642,
+  "Osogbo, Osun, Nigeria": {
+    "timestamp": 1776092799.6785128,
     "data": {
       "max_rain_prob": 20,
       "risk_level": "LOW"
     }
   },
-  "Osogbo, Osun, Nigeria": {
-    "timestamp": 1776078425.8414247,
-    "data": {
-      "max_rain_prob": 7,
-      "risk_level": "LOW"
-    }
-  },
   "Jos, Plateau, Nigeria": {
-    "timestamp": 1776078426.1883543,
+    "timestamp": 1776092799.8244884,
     "data": {
       "max_rain_prob": 0,
       "risk_level": "LOW"
     }
   },
   "Port Harcourt, Rivers, Nigeria": {
-    "timestamp": 1776078426.3770547,
+    "timestamp": 1776092799.9625182,
     "data": {
-      "max_rain_prob": 83,
-      "risk_level": "HIGH"
+      "max_rain_prob": 24,
+      "risk_level": "LOW"
     }
   },
   "Ibadan, Oyo, Nigeria": {
-    "timestamp": 1776078426.5637562,
+    "timestamp": 1776092800.1186495,
     "data": {
-      "max_rain_prob": 31,
+      "max_rain_prob": 39,
       "risk_level": "LOW"
     }
   },
   "Jalingo, Taraba, Nigeria": {
-    "timestamp": 1776078426.7361896,
+    "timestamp": 1776092800.2541673,
     "data": {
-      "max_rain_prob": 2,
+      "max_rain_prob": 27,
       "risk_level": "LOW"
     }
   }
