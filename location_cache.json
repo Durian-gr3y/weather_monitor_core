@@ -1,5 +1,5 @@
 {
-  "version": "08f63bc06f71f5d3dba648871331e5158eb16d0282e3c59015688a18784744c6",
+  "version": "683e57d6963acb6884b8dc9b0d0ff856c926dcd688105ade2ca180d9f775cf06",
   "locations": {
     "Umuahia, Abia, Nigeria": {
       "lat": 5.5324032,
@@ -90,7 +90,7 @@
       "lon": 5.1932647
     },
     "Osogbo, Osun, Nigeria": {
-      "lat": 7.7583222,
+      "lat": 7.7583223,
       "lon": 4.5750447
     },
     "Jos, Plateau, Nigeria": {
@@ -108,6 +108,26 @@
     "Jalingo, Taraba, Nigeria": {
       "lat": 8.894985,
       "lon": 11.360042
+    },
+    "Ikole, Ekiti, Nigeria": {
+      "lat": 7.8831532,
+      "lon": 5.5156487
+    },
+    "Lafia, Nasarawa, Nigeria": {
+      "lat": 8.4960459,
+      "lon": 8.5147636
+    },
+    "Bori, Rivers, Nigeria": {
+      "lat": 4.6748179,
+      "lon": 7.3656129
+    },
+    "Bukuru, Plateau, Nigeria": {
+      "lat": 9.799912,
+      "lon": 8.866667
+    },
+    "Oron, Akwa Ibom, Nigeria": {
+      "lat": 4.8169432,
+      "lon": 8.2369999
     }
   }
 }
