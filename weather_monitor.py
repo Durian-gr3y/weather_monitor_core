@@ -43,8 +43,13 @@ LOCATIONS = [
     "Jos, Plateau, Nigeria",
     "Port Harcourt, Rivers, Nigeria",
     "Ibadan, Oyo, Nigeria",
-    "Jalingo, Taraba, Nigeria"
-]
+    "Jalingo, Taraba, Nigeria",
+    "Ikole, Ekiti, Nigeria",
+    "Lafia, Nasarawa, Nigeria",
+    "Bori, Rivers, Nigeria",
+    "Bukuru, Plateau, Nigeria",
+    "Oron, Akwa Ibom, Nigeria",
+    ]
 
 # Cache settings
 LOCATION_CACHE_FILE = "location_cache.json"
