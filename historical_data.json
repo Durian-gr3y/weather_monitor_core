@@ -474443,5 +474443,362 @@
         "risk": "HIGH"
       }
     ]
+  },
+  {
+    "generated_at": "2026-07-25T04:53:03.327175+00:00",
+    "locations": [
+      {
+        "place": "Umuahia, Abia, Nigeria",
+        "temp": 22.3,
+        "feels_like": 23.12,
+        "humidity": 97,
+        "wind_speed": 1.93,
+        "clouds": 93,
+        "description": "Overcast clouds",
+        "rain_probability": 96,
+        "risk": "HIGH"
+      },
+      {
+        "place": "Uyo, Akwa Ibom, Nigeria",
+        "temp": 22.97,
+        "feels_like": 23.86,
+        "humidity": 97,
+        "wind_speed": 1.51,
+        "clouds": 100,
+        "description": "Overcast clouds",
+        "rain_probability": 87,
+        "risk": "HIGH"
+      },
+      {
+        "place": "Yola, Adamawa, Nigeria",
+        "temp": 24.37,
+        "feels_like": 25.13,
+        "humidity": 87,
+        "wind_speed": 0.91,
+        "clouds": 95,
+        "description": "Overcast clouds",
+        "rain_probability": 5,
+        "risk": "LOW"
+      },
+      {
+        "place": "Awka, Anambra, Nigeria",
+        "temp": 22.39,
+        "feels_like": 23.24,
+        "humidity": 98,
+        "wind_speed": 1.72,
+        "clouds": 100,
+        "description": "Light rain",
+        "rain_probability": 96,
+        "risk": "HIGH"
+      },
+      {
+        "place": "Yenagoa, Bayelsa, Nigeria",
+        "temp": 23,
+        "feels_like": 23.89,
+        "humidity": 97,
+        "wind_speed": 1.82,
+        "clouds": 96,
+        "description": "Overcast clouds",
+        "rain_probability": 100,
+        "risk": "HIGH"
+      },
+      {
+        "place": "Makurdi, Benue, Nigeria",
+        "temp": 22.99,
+        "feels_like": 23.88,
+        "humidity": 97,
+        "wind_speed": 1.89,
+        "clouds": 100,
+        "description": "Overcast clouds",
+        "rain_probability": 76,
+        "risk": "HIGH"
+      },
+      {
+        "place": "Calabar, Cross River, Nigeria",
+        "temp": 23.27,
+        "feels_like": 24.16,
+        "humidity": 96,
+        "wind_speed": 1.18,
+        "clouds": 100,
+        "description": "Overcast clouds",
+        "rain_probability": 95,
+        "risk": "HIGH"
+      },
+      {
+        "place": "Asaba, Delta, Nigeria",
+        "temp": 23,
+        "feels_like": 23.89,
+        "humidity": 97,
+        "wind_speed": 1.23,
+        "clouds": 99,
+        "description": "Light rain",
+        "rain_probability": 88,
+        "risk": "HIGH"
+      },
+      {
+        "place": "Benin City, Edo, Nigeria",
+        "temp": 22.14,
+        "feels_like": 22.99,
+        "humidity": 99,
+        "wind_speed": 1.14,
+        "clouds": 100,
+        "description": "Overcast clouds",
+        "rain_probability": 68,
+        "risk": "MODERATE"
+      },
+      {
+        "place": "Ado Ekiti, Ekiti, Nigeria",
+        "temp": 20.93,
+        "feels_like": 21.64,
+        "humidity": 98,
+        "wind_speed": 1.59,
+        "clouds": 100,
+        "description": "Light rain",
+        "rain_probability": 76,
+        "risk": "HIGH"
+      },
+      {
+        "place": "Enugu, Enugu, Nigeria",
+        "temp": 22.51,
+        "feels_like": 23.35,
+        "humidity": 97,
+        "wind_speed": 3.19,
+        "clouds": 100,
+        "description": "Light rain",
+        "rain_probability": 100,
+        "risk": "HIGH"
+      },
+      {
+        "place": "Dutse, Jigawa, Nigeria",
+        "temp": 25.12,
+        "feels_like": 25.65,
+        "humidity": 75,
+        "wind_speed": 4.27,
+        "clouds": 87,
+        "description": "Overcast clouds",
+        "rain_probability": 0,
+        "risk": "LOW"
+      },
+      {
+        "place": "Kaduna, Kaduna, Nigeria",
+        "temp": 21.49,
+        "feels_like": 22.15,
+        "humidity": 94,
+        "wind_speed": 1.91,
+        "clouds": 98,
+        "description": "Overcast clouds",
+        "rain_probability": 65,
+        "risk": "MODERATE"
+      },
+      {
+        "place": "Kano, Kano, Nigeria",
+        "temp": 25.74,
+        "feels_like": 26.22,
+        "humidity": 71,
+        "wind_speed": 3.65,
+        "clouds": 100,
+        "description": "Overcast clouds",
+        "rain_probability": 7,
+        "risk": "LOW"
+      },
+      {
+        "place": "Birnin Kebbi, Kebbi, Nigeria",
+        "temp": 26.78,
+        "feels_like": 28.49,
+        "humidity": 70,
+        "wind_speed": 3.45,
+        "clouds": 50,
+        "description": "Scattered clouds",
+        "rain_probability": 15,
+        "risk": "LOW"
+      },
+      {
+        "place": "Lokoja, Kogi, Nigeria",
+        "temp": 22.94,
+        "feels_like": 23.85,
+        "humidity": 98,
+        "wind_speed": 1.4,
+        "clouds": 98,
+        "description": "Moderate rain",
+        "rain_probability": 95,
+        "risk": "HIGH"
+      },
+      {
+        "place": "Ilorin, Kwara, Nigeria",
+        "temp": 22.07,
+        "feels_like": 22.84,
+        "humidity": 96,
+        "wind_speed": 3.36,
+        "clouds": 99,
+        "description": "Overcast clouds",
+        "rain_probability": 36,
+        "risk": "LOW"
+      },
+      {
+        "place": "Ikeja, Lagos, Nigeria",
+        "temp": 24.09,
+        "feels_like": 24.88,
+        "humidity": 89,
+        "wind_speed": 2.5,
+        "clouds": 97,
+        "description": "Overcast clouds",
+        "rain_probability": 0,
+        "risk": "LOW"
+      },
+      {
+        "place": "Owerri, Imo, Nigeria",
+        "temp": 22.5,
+        "feels_like": 23.36,
+        "humidity": 98,
+        "wind_speed": 1.42,
+        "clouds": 95,
+        "description": "Overcast clouds",
+        "rain_probability": 95,
+        "risk": "HIGH"
+      },
+      {
+        "place": "Abeokuta, Ogun, Nigeria",
+        "temp": 21.94,
+        "feels_like": 22.75,
+        "humidity": 98,
+        "wind_speed": 1.47,
+        "clouds": 96,
+        "description": "Overcast clouds",
+        "rain_probability": 0,
+        "risk": "LOW"
+      },
+      {
+        "place": "Sagamu, Ogun State, Nigeria",
+        "temp": 22.61,
+        "feels_like": 23.43,
+        "humidity": 96,
+        "wind_speed": 1.31,
+        "clouds": 90,
+        "description": "Overcast clouds",
+        "rain_probability": 0,
+        "risk": "LOW"
+      },
+      {
+        "place": "Akure, Ondo, Nigeria",
+        "temp": 20.82,
+        "feels_like": 21.54,
+        "humidity": 99,
+        "wind_speed": 1.43,
+        "clouds": 100,
+        "description": "Light rain",
+        "rain_probability": 58,
+        "risk": "MODERATE"
+      },
+      {
+        "place": "Osogbo, Osun, Nigeria",
+        "temp": 20.91,
+        "feels_like": 21.64,
+        "humidity": 99,
+        "wind_speed": 1.37,
+        "clouds": 100,
+        "description": "Light rain",
+        "rain_probability": 34,
+        "risk": "LOW"
+      },
+      {
+        "place": "Jos, Plateau, Nigeria",
+        "temp": 18.72,
+        "feels_like": 19.02,
+        "humidity": 91,
+        "wind_speed": 1.23,
+        "clouds": 100,
+        "description": "Light rain",
+        "rain_probability": 77,
+        "risk": "HIGH"
+      },
+      {
+        "place": "Port Harcourt, Rivers, Nigeria",
+        "temp": 23.54,
+        "feels_like": 24.4,
+        "humidity": 94,
+        "wind_speed": 1.89,
+        "clouds": 100,
+        "description": "Overcast clouds",
+        "rain_probability": 95,
+        "risk": "HIGH"
+      },
+      {
+        "place": "Ibadan, Oyo, Nigeria",
+        "temp": 21.28,
+        "feels_like": 22.02,
+        "humidity": 98,
+        "wind_speed": 1.42,
+        "clouds": 96,
+        "description": "Overcast clouds",
+        "rain_probability": 25,
+        "risk": "LOW"
+      },
+      {
+        "place": "Jalingo, Taraba, Nigeria",
+        "temp": 23.28,
+        "feels_like": 24.14,
+        "humidity": 95,
+        "wind_speed": 1.37,
+        "clouds": 98,
+        "description": "Overcast clouds",
+        "rain_probability": 36,
+        "risk": "LOW"
+      },
+      {
+        "place": "Ikole, Ekiti, Nigeria",
+        "temp": 20.6,
+        "feels_like": 21.27,
+        "humidity": 98,
+        "wind_speed": 1.96,
+        "clouds": 100,
+        "description": "Light rain",
+        "rain_probability": 98,
+        "risk": "HIGH"
+      },
+      {
+        "place": "Lafia, Nasarawa, Nigeria",
+        "temp": 23.7,
+        "feels_like": 24.5,
+        "humidity": 91,
+        "wind_speed": 2.07,
+        "clouds": 100,
+        "description": "Overcast clouds",
+        "rain_probability": 35,
+        "risk": "LOW"
+      },
+      {
+        "place": "Bori, Rivers, Nigeria",
+        "temp": 23.88,
+        "feels_like": 24.73,
+        "humidity": 92,
+        "wind_speed": 2.17,
+        "clouds": 100,
+        "description": "Overcast clouds",
+        "rain_probability": 90,
+        "risk": "HIGH"
+      },
+      {
+        "place": "Bukuru, Plateau, Nigeria",
+        "temp": 18.37,
+        "feels_like": 18.61,
+        "humidity": 90,
+        "wind_speed": 1.05,
+        "clouds": 100,
+        "description": "Light rain",
+        "rain_probability": 82,
+        "risk": "HIGH"
+      },
+      {
+        "place": "Oron, Akwa Ibom, Nigeria",
+        "temp": 23.67,
+        "feels_like": 24.52,
+        "humidity": 93,
+        "wind_speed": 1.6,
+        "clouds": 100,
+        "description": "Light rain",
+        "rain_probability": 95,
+        "risk": "HIGH"
+      }
+    ]
   }
 ]
