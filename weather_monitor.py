@@ -49,6 +49,7 @@ LOCATIONS = [
     "Bori, Rivers, Nigeria",
     "Bukuru, Plateau, Nigeria",
     "Oron, Akwa Ibom, Nigeria",
+    "Maitama, Abuja, Nigeria"
     ]
 
 # Cache settings
