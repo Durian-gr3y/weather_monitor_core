@@ -887,9 +887,9 @@
             const region = getRegion(loc.place);
             const icon = getWeatherIcon(loc.description);
             const riskClass = loc.risk.toLowerCase();
-            const aqi = estimateAQI(loc);
-            const uv = estimateUV(loc);
-            const precip = estimatePrecipitation(loc);
+            const aqi = loc.aqi ?? estimateAQI(loc);
+            const uv = loc.uv_index ?? estimateUV(loc);
+            const precip = loc.precipitation ?? estimatePrecipitation(loc);
 
             document.getElementById('page-content').innerHTML = `
                 <!-- CITY HERO -->

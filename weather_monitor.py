@@ -120,7 +120,8 @@ def save_historical_csv(historical_data):
             # Write header
             writer.writerow([
                 "timestamp", "place", "temp", "feels_like", "humidity", 
-                "wind_speed", "clouds", "description", "rain_probability", "risk"
+                "wind_speed", "clouds", "description", "rain_probability", "risk",
+                "precipitation", "aqi", "uv_index"
             ])
             
             # Flatten nested structure: each location in each snapshot becomes a row
@@ -139,7 +140,10 @@ def save_historical_csv(historical_data):
                         location.get("clouds", ""),
                         location.get("description", ""),
                         location.get("rain_probability", ""),
-                        location.get("risk", "")
+                        location.get("risk", ""),
+                        location.get("precipitation", ""),
+                        location.get("aqi", ""),
+                        location.get("uv_index", "")
                     ])
         
         logging.info(f"Historical data exported to {HISTORICAL_DATA_CSV_FILE}")
@@ -218,7 +222,8 @@ def fetch_weather(lat, lon):
             "humidity": main["humidity"],
             "wind_speed": data.get("wind", {}).get("speed", 0),
             "clouds": data.get("clouds", {}).get("all", 0),
-            "description": weather_desc
+            "description": weather_desc,
+            "precipitation": data.get("rain", {}).get("1h", data.get("rain", {}).get("3h", 0))
         }
     except requests.exceptions.RequestException as e:
         logging.error(f"Weather API connection error: {e}")
@@ -226,6 +231,34 @@ def fetch_weather(lat, lon):
         logging.error(f"Weather API response parsing error (missing key): {e}")
     except Exception as e:
         logging.error(f"Unexpected error fetching weather: {e}")
+    return None
+
+def fetch_air_pollution(lat, lon):
+    if not API_KEY:
+        return None
+    try:
+        url = "https://api.openweathermap.org/data/2.5/air_pollution"
+        params = {"lat": lat, "lon": lon, "appid": API_KEY}
+        response = requests.get(url, params=params, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        return data["list"][0]["main"]["aqi"]
+    except Exception as e:
+        logging.error(f"Air pollution API error: {e}")
+    return None
+
+def fetch_uv_index(lat, lon):
+    if not API_KEY:
+        return None
+    try:
+        url = "https://api.openweathermap.org/data/2.5/uvi"
+        params = {"lat": lat, "lon": lon, "appid": API_KEY}
+        response = requests.get(url, params=params, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        return data.get("value", 0)
+    except Exception as e:
+        logging.error(f"UV index API error: {e}")
     return None
 
 def fetch_rain_probability(lat, lon, place):
@@ -319,6 +352,8 @@ def main():
             
             weather = fetch_weather(lat, lon)
             rain = fetch_rain_probability(lat, lon, place)
+            aqi = fetch_air_pollution(lat, lon)
+            uv_index = fetch_uv_index(lat, lon)
             
             location_result = {
                 "place": place,
@@ -329,7 +364,10 @@ def main():
                 "clouds": None,
                 "description": None,
                 "rain_probability": None,
-                "risk": "UNKNOWN"
+                "risk": "UNKNOWN",
+                "precipitation": None,
+                "aqi": aqi,
+                "uv_index": uv_index
             }
 
             if weather:
@@ -339,7 +377,8 @@ def main():
                     "humidity": weather['humidity'],
                     "wind_speed": weather['wind_speed'],
                     "clouds": weather['clouds'],
-                    "description": weather['description']
+                    "description": weather['description'],
+                    "precipitation": weather['precipitation']
                 })
                 
                 log_msg = f"{place}: {weather['temp']}°C, {weather['description']}"
