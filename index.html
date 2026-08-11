@@ -1125,48 +1125,56 @@
         /* ---------- Historical Info ---------- */
         async function loadHistoricalInfo() {
             try {
-                // Fetch only the first chunk of the file to get count — the file can be very large
                 const res = await fetch('historical_data.json');
                 if (!res.ok) throw new Error('Not found');
 
-                // Stream just enough to count top-level array entries
+                // Stream the file to count entries and find the latest date without loading it all into memory
                 const reader = res.body.getReader();
                 const decoder = new TextDecoder();
-                let text = '';
                 let count = 0;
-                let latestDate = null;
-                let done = false;
-                let bytesRead = 0;
-                const MAX_BYTES = 512 * 1024; // read max 512KB to count entries
+                let latestDateStr = null;
+                let buffer = '';
 
-                while (!done && bytesRead < MAX_BYTES) {
-                    const { value, done: streamDone } = await reader.read();
-                    done = streamDone;
+                while (true) {
+                    const { value, done } = await reader.read();
+                    if (done) break;
+                    
                     if (value) {
-                        bytesRead += value.length;
-                        text += decoder.decode(value, { stream: !done });
+                        buffer += decoder.decode(value, { stream: true });
+                        
+                        // Find all instances of "generated_at" in the current buffer
+                        let searchIdx = 0;
+                        while (true) {
+                            const idx = buffer.indexOf('"generated_at"', searchIdx);
+                            if (idx === -1) break;
+                            
+                            // Look for the actual date value following the key
+                            const remainder = buffer.slice(idx);
+                            const match = remainder.match(/"generated_at"\s*:\s*"([^"]+)"/);
+                            
+                            if (match) {
+                                count++;
+                                latestDateStr = match[1];
+                                searchIdx = idx + match[0].length;
+                            } else {
+                                // The value is cut off at the chunk boundary; stop processing this buffer
+                                // and wait for the next chunk to complete it.
+                                break;
+                            }
+                        }
+                        
+                        // Keep the last portion of the buffer to handle cross-chunk boundaries
+                        // (e.g. if '"generated_at"' is split exactly at the end of the chunk)
+                        if (buffer.length > 200) {
+                            buffer = buffer.slice(-200);
+                        }
                     }
                 }
-                // Cancel remainder of stream
-                reader.cancel();
 
-                // Count top-level objects: count occurrences of '"generated_at"'
-                const matches = text.match(/"generated_at"/g);
-                count = matches ? matches.length : 0;
+                document.getElementById('snapshot-count').textContent = count;
 
-                // Try to get the latest date from what we have
-                const dateMatches = text.match(/"generated_at"\s*:\s*"([^"]+)"/g);
-                if (dateMatches && dateMatches.length > 0) {
-                    const lastMatch = dateMatches[dateMatches.length - 1];
-                    const dateStr = lastMatch.match(/"([0-9T:.+\-Z]+)"/)?.[1];
-                    if (dateStr) latestDate = new Date(dateStr);
-                }
-
-                // If we hit the byte limit, indicate there are more
-                const suffix = bytesRead >= MAX_BYTES ? '+' : '';
-                document.getElementById('snapshot-count').textContent = count + suffix;
-
-                if (latestDate) {
+                if (latestDateStr) {
+                    const latestDate = new Date(latestDateStr);
                     document.getElementById('latest-snapshot').textContent =
                         'Latest: ' + latestDate.toLocaleDateString('en-NG') + ', ' +
                         latestDate.toLocaleTimeString('en-NG', { hour: '2-digit', minute: '2-digit' });
