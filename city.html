@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Weather — Nigeria Weather Dashboard</title>
+    <meta name="description" content="Detailed weather data and historical trends for a Nigerian city.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icons & Charts -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+
+    <style>
+        /* ============================================================
+           DESIGN TOKENS (shared with index.html)
+           ============================================================ */
+        :root {
+            --bg-body: #f0f4f8;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f8faff;
+            --bg-elevated: #ffffff;
+            --bg-glass: rgba(255, 255, 255, 0.7);
+            --bg-glass-border: rgba(255, 255, 255, 0.25);
+
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --text-inverse: #ffffff;
+
+            --brand-primary: #6366f1;
+            --brand-primary-hover: #4f46e5;
+            --brand-secondary: #8b5cf6;
+            --brand-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a78bfa 100%);
+            --brand-gradient-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
+
+            --accent-blue: #3b82f6;
+            --accent-cyan: #06b6d4;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            --accent-orange: #f97316;
+            --accent-violet: #8b5cf6;
+            --accent-sky: #0ea5e9;
+
+            --risk-low: #10b981;
+            --risk-low-bg: rgba(16, 185, 129, 0.1);
+            --risk-moderate: #f59e0b;
+            --risk-moderate-bg: rgba(245, 158, 11, 0.1);
+            --risk-high: #ef4444;
+            --risk-high-bg: rgba(239, 68, 68, 0.1);
+
+            --border: #e2e8f0;
+            --border-subtle: #f1f5f9;
+            --ring: rgba(99, 102, 241, 0.4);
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-full: 9999px;
+
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dark {
+            --bg-body: #0a0e1a;
+            --bg-card: #111827;
+            --bg-card-hover: #1a2236;
+            --bg-elevated: #1e293b;
+            --bg-glass: rgba(17, 24, 39, 0.8);
+            --bg-glass-border: rgba(255, 255, 255, 0.08);
+
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --text-inverse: #0f172a;
+
+            --border: #1e293b;
+            --border-subtle: #1e293b;
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.3);
+
+            --risk-low-bg: rgba(16, 185, 129, 0.15);
+            --risk-moderate-bg: rgba(245, 158, 11, 0.15);
+            --risk-high-bg: rgba(239, 68, 68, 0.15);
+        }
+
+        /* ============================================================
+           RESET & BASE
+           ============================================================ */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: background-color var(--transition-base), color var(--transition-base);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            line-height: 1.2;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* ============================================================
+           NAVIGATION (identical to index.html)
+           ============================================================ */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--bg-glass-border);
+            padding: 0 clamp(1rem, 5vw, 3rem);
+        }
+
+        .navbar-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: var(--brand-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+        }
+
+        .logo-text {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+        }
+
+        .icon-btn:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--brand-primary);
+            color: var(--brand-primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ============================================================
+           CITY HERO
+           ============================================================ */
+        .city-hero {
+            padding: 2.5rem clamp(1rem, 5vw, 3rem) 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .breadcrumb a {
+            color: var(--brand-primary);
+            font-weight: 500;
+            transition: color var(--transition-fast);
+        }
+
+        .breadcrumb a:hover { color: var(--brand-primary-hover); }
+
+        .city-hero-content {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .city-hero-left {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .city-hero-left h1 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+
+        .city-region-label {
+            font-size: 1.0625rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .city-condition-strip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .city-condition-strip.low { background: var(--risk-low-bg); color: var(--risk-low); }
+        .city-condition-strip.moderate { background: var(--risk-moderate-bg); color: var(--risk-moderate); }
+        .city-condition-strip.high { background: var(--risk-high-bg); color: var(--risk-high); }
+
+        .city-hero-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-temp-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-lg);
+            background: var(--brand-gradient-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand-primary);
+        }
+
+        .hero-temp-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .hero-temp-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.125rem;
+        }
+
+        .hero-temp-unit {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .hero-temp-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* ============================================================
+           METRIC CARDS GRID
+           ============================================================ */
+        .metrics-section {
+            padding: 0 clamp(1rem, 5vw, 3rem);
+            max-width: 1400px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            color: var(--text-primary);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-base);
+            animation: metricFadeIn 0.4s ease forwards;
+            opacity: 0;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--brand-primary);
+        }
+
+        @keyframes metricFadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .metric-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .metric-icon-wrap {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .metric-icon-wrap.temp { background: rgba(239, 68, 68, 0.1); color: var(--accent-rose); }
+        .metric-icon-wrap.humidity { background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); }
+        .metric-icon-wrap.wind { background: rgba(6, 182, 212, 0.1); color: var(--accent-cyan); }
+        .metric-icon-wrap.rain { background: rgba(99, 102, 241, 0.1); color: var(--brand-primary); }
+        .metric-icon-wrap.uv { background: rgba(245, 158, 11, 0.1); color: var(--accent-amber); }
+        .metric-icon-wrap.aqi { background: rgba(16, 185, 129, 0.1); color: var(--accent-emerald); }
+        .metric-icon-wrap.precip { background: rgba(14, 165, 233, 0.1); color: var(--accent-sky); }
+
+        .metric-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .metric-value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .metric-sub {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .metric-bar {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border-subtle);
+            overflow: hidden;
+            margin-top: 0.25rem;
+        }
+
+        .metric-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.8s ease;
+        }
+
+        .metric-bar-fill.temp { background: linear-gradient(90deg, #f59e0b, #ef4444); }
+        .metric-bar-fill.humidity { background: linear-gradient(90deg, #3b82f6, #6366f1); }
+        .metric-bar-fill.wind { background: linear-gradient(90deg, #06b6d4, #0ea5e9); }
+        .metric-bar-fill.rain { background: linear-gradient(90deg, #6366f1, #8b5cf6); }
+        .metric-bar-fill.uv { background: linear-gradient(90deg, #f59e0b, #f97316); }
+        .metric-bar-fill.aqi { background: linear-gradient(90deg, #10b981, #059669); }
+        .metric-bar-fill.precip { background: linear-gradient(90deg, #0ea5e9, #3b82f6); }
+
+        /* ============================================================
+           HISTORICAL CHART SECTION
+           ============================================================ */
+        .chart-section {
+            padding: 0 clamp(1rem, 5vw, 3rem);
+            max-width: 1400px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .chart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .chart-tabs {
+            display: flex;
+            gap: 0.25rem;
+            background: var(--bg-body);
+            border: 1px solid var(--border);
+            padding: 0.25rem;
+            border-radius: var(--radius-md);
+        }
+
+        .chart-tab {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            border-radius: var(--radius-sm);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .chart-tab.active {
+            background: var(--bg-card);
+            color: var(--brand-primary);
+            box-shadow: var(--shadow-xs);
+            font-weight: 600;
+        }
+
+        .chart-tab:hover:not(.active) { color: var(--text-primary); }
+
+        .chart-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            min-height: 360px;
+        }
+
+        .chart-canvas-wrap {
+            position: relative;
+            width: 100%;
+            height: 320px;
+        }
+
+        .chart-loading {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.9375rem;
+            gap: 0.5rem;
+        }
+
+        .chart-loading .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            border-top-color: var(--brand-primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .chart-empty {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            gap: 0.5rem;
+        }
+
+        /* ============================================================
+           HISTORICAL TABLE
+           ============================================================ */
+        .table-section {
+            padding: 0 clamp(1rem, 5vw, 3rem);
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+        }
+
+        .table-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .table-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8125rem;
+        }
+
+        .data-table thead {
+            background: var(--bg-body);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table th {
+            padding: 0.875rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .data-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .table-risk-badge {
+            display: inline-flex;
+            padding: 0.1875rem 0.5rem;
+            border-radius: var(--radius-full);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .table-risk-badge.low { background: var(--risk-low-bg); color: var(--risk-low); }
+        .table-risk-badge.moderate { background: var(--risk-moderate-bg); color: var(--risk-moderate); }
+        .table-risk-badge.high { background: var(--risk-high-bg); color: var(--risk-high); }
+
+        .table-scroll {
+            overflow-x: auto;
+        }
+
+        .records-info {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .site-footer {
+            text-align: center;
+            padding: 2.5rem clamp(1rem, 5vw, 3rem);
+            color: var(--text-muted);
+            font-size: 0.8125rem;
+            border-top: 1px solid var(--border);
+            background: var(--bg-card);
+        }
+
+        /* ============================================================
+           ERROR STATE
+           ============================================================ */
+        .error-state {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem clamp(1rem, 5vw, 3rem);
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .error-state h2 {
+            font-size: 1.5rem;
+            margin: 1rem 0 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .error-state p { max-width: 420px; margin: 0 auto 1.5rem; }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--brand-gradient);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.9375rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 768px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .city-hero-right {
+                padding: 1.25rem 1.5rem;
+            }
+
+            .hero-temp-number { font-size: 2.75rem; }
+            .hero-temp-icon { width: 48px; height: 48px; }
+
+            .chart-header { flex-direction: column; align-items: flex-start; }
+        }
+
+        @media (max-width: 480px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .city-hero-content { flex-direction: column; }
+
+            .city-hero-right { width: 100%; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ============================================
+         NAVBAR
+         ============================================ -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <i data-lucide="cloud-sun" style="width:22px;height:22px"></i>
+                </div>
+                <span class="logo-text">Nigeria Weather</span>
+            </a>
+            <div class="nav-actions">
+                <a href="index.html" class="icon-btn" aria-label="Back to dashboard">
+                    <i data-lucide="layout-dashboard" style="width:18px;height:18px"></i>
+                </a>
+                <button class="icon-btn" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">
+                    <i data-lucide="moon" id="themeIcon" style="width:18px;height:18px"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         MAIN CONTENT (populated by JS)
+         ============================================ -->
+    <div id="page-content">
+        <!-- Loading state -->
+        <div class="city-hero">
+            <div class="breadcrumb">
+                <a href="index.html">Dashboard</a>
+                <i data-lucide="chevron-right" style="width:14px;height:14px"></i>
+                <span>Loading...</span>
+            </div>
+        </div>
+        <div class="metrics-section">
+            <div class="metrics-grid">
+                <div class="metric-card" style="opacity:1"><div style="height:14px;width:50%;background:var(--border);border-radius:4px"></div><div style="height:32px;width:40%;background:var(--border);border-radius:4px"></div><div style="height:6px;width:100%;background:var(--border);border-radius:3px"></div></div>
+                <div class="metric-card" style="opacity:1"><div style="height:14px;width:50%;background:var(--border);border-radius:4px"></div><div style="height:32px;width:40%;background:var(--border);border-radius:4px"></div><div style="height:6px;width:100%;background:var(--border);border-radius:3px"></div></div>
+                <div class="metric-card" style="opacity:1"><div style="height:14px;width:50%;background:var(--border);border-radius:4px"></div><div style="height:32px;width:40%;background:var(--border);border-radius:4px"></div><div style="height:6px;width:100%;background:var(--border);border-radius:3px"></div></div>
+                <div class="metric-card" style="opacity:1"><div style="height:14px;width:50%;background:var(--border);border-radius:4px"></div><div style="height:32px;width:40%;background:var(--border);border-radius:4px"></div><div style="height:6px;width:100%;background:var(--border);border-radius:3px"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="site-footer">
+        <p>&copy; 2026 Nigeria Weather Services &mdash; Data for reference purposes only.</p>
+    </footer>
+
+    <!-- ============================================
+         SCRIPTS
+         ============================================ -->
+    <script>
+        /* ---------- Theme ---------- */
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            const isDark = document.body.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            const icon = document.getElementById('themeIcon');
+            icon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+            lucide.createIcons();
+            // Re-render charts in dark mode compatible colors
+            if (window.historyChart) updateChartColors();
+        }
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark');
+            document.getElementById('themeIcon').setAttribute('data-lucide', 'sun');
+        }
+
+        /* ---------- Helpers ---------- */
+        function getUrlParam(key) {
+            return new URLSearchParams(window.location.search).get(key);
+        }
+
+        function getCityName(place) {
+            return place.split(',')[0].trim();
+        }
+
+        function getRegion(place) {
+            return place.split(',').slice(1).join(',').trim() || 'Nigeria';
+        }
+
+        function getWeatherIcon(description) {
+            const desc = description.toLowerCase();
+            if (desc.includes('clear')) return 'sun';
+            if (desc.includes('rain')) return 'cloud-rain';
+            if (desc.includes('storm') || desc.includes('thunder')) return 'cloud-lightning';
+            if (desc.includes('broken') || desc.includes('partly') || desc.includes('scattered')) return 'cloud-sun';
+            return 'cloud';
+        }
+
+        /* ---------- Simulated Extra Metrics ---------- */
+        // AQI and UV are not in the dataset; we derive plausible values from available data.
+        function estimateAQI(loc) {
+            // Moderate range: 30-120, influenced by clouds & humidity
+            const base = 40 + Math.round((100 - loc.clouds) * 0.5 + loc.wind_speed * 3);
+            return Math.min(150, Math.max(20, base));
+        }
+
+        function estimateUV(loc) {
+            // UV index 1-11+, inversely correlated to clouds
+            const base = ((100 - loc.clouds) / 100) * 10 + 1;
+            return Math.min(11, Math.max(1, Math.round(base * 10) / 10));
+        }
+
+        function estimatePrecipitation(loc) {
+            // mm estimate from rain_probability & description
+            const desc = loc.description.toLowerCase();
+            let base = loc.rain_probability * 0.08;
+            if (desc.includes('moderate rain')) base *= 2.5;
+            else if (desc.includes('heavy rain')) base *= 4;
+            else if (desc.includes('light rain')) base *= 1.5;
+            return Math.round(base * 10) / 10;
+        }
+
+        function getAQILabel(aqi) {
+            if (aqi <= 50) return 'Good';
+            if (aqi <= 100) return 'Moderate';
+            return 'Unhealthy';
+        }
+
+        function getUVLabel(uv) {
+            if (uv <= 2) return 'Low';
+            if (uv <= 5) return 'Moderate';
+            if (uv <= 7) return 'High';
+            if (uv <= 10) return 'Very High';
+            return 'Extreme';
+        }
+
+        /* ---------- Chart State ---------- */
+        let historyChart = null;
+        let historicalRecords = [];
+        let currentChartMetric = 'temp';
+
+        /* ---------- Main Init ---------- */
+        async function init() {
+            const placeName = getUrlParam('name');
+            if (!placeName) {
+                showError('No city specified', 'Please navigate from the dashboard to view city details.');
+                return;
+            }
+
+            try {
+                // Load current data
+                const res = await fetch('weather_data.json');
+                const data = await res.json();
+                const loc = data.locations.find(l => l.place === placeName);
+
+                if (!loc) {
+                    showError('City not found', `"${placeName}" was not found in the current weather data.`);
+                    return;
+                }
+
+                document.title = `${getCityName(loc.place)} Weather — Nigeria Weather Dashboard`;
+                renderCityPage(loc);
+
+                // Load historical data
+                loadHistoricalData(placeName);
+
+            } catch (err) {
+                console.error(err);
+                showError('Data load failed', 'Could not fetch weather data. Please try again later.');
+            }
+        }
+
+        /* ---------- Error ---------- */
+        function showError(title, message) {
+            document.getElementById('page-content').innerHTML = `
+                <div class="error-state">
+                    <i data-lucide="cloud-off" style="width:56px;height:56px"></i>
+                    <h2>${title}</h2>
+                    <p>${message}</p>
+                    <a href="index.html" class="btn-back">
+                        <i data-lucide="arrow-left" style="width:16px;height:16px"></i>
+                        Back to Dashboard
+                    </a>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        /* ---------- Render City Page ---------- */
+        function renderCityPage(loc) {
+            const city = getCityName(loc.place);
+            const region = getRegion(loc.place);
+            const icon = getWeatherIcon(loc.description);
+            const riskClass = loc.risk.toLowerCase();
+            const aqi = estimateAQI(loc);
+            const uv = estimateUV(loc);
+            const precip = estimatePrecipitation(loc);
+
+            document.getElementById('page-content').innerHTML = `
+                <!-- CITY HERO -->
+                <section class="city-hero">
+                    <div class="breadcrumb">
+                        <a href="index.html">Dashboard</a>
+                        <i data-lucide="chevron-right" style="width:14px;height:14px"></i>
+                        <span>${city}</span>
+                    </div>
+                    <div class="city-hero-content">
+                        <div class="city-hero-left">
+                            <h1>${city}</h1>
+                            <div class="city-region-label">${region}</div>
+                            <div class="city-condition-strip ${riskClass}">
+                                <i data-lucide="${icon}" style="width:16px;height:16px"></i>
+                                ${loc.description} &mdash; ${loc.risk} Risk
+                            </div>
+                        </div>
+                        <div class="city-hero-right">
+                            <div class="hero-temp-icon">
+                                <i data-lucide="${icon}" style="width:32px;height:32px"></i>
+                            </div>
+                            <div>
+                                <div class="hero-temp-number">${Math.round(loc.temp)}<span class="hero-temp-unit">°C</span></div>
+                                <div class="hero-temp-desc">Feels like ${loc.feels_like}°C</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- METRIC CARDS -->
+                <section class="metrics-section">
+                    <h2 class="section-title">Current Conditions</h2>
+                    <div class="metrics-grid">
+
+                        <!-- Temperature -->
+                        <div class="metric-card" style="animation-delay: 0s">
+                            <div class="metric-header">
+                                <div class="metric-icon-wrap temp"><i data-lucide="thermometer" style="width:20px;height:20px"></i></div>
+                                <span class="metric-label">Temperature</span>
+                            </div>
+                            <div class="metric-value">${loc.temp}°C</div>
+                            <div class="metric-sub">Feels like ${loc.feels_like}°C</div>
+                            <div class="metric-bar"><div class="metric-bar-fill temp" style="width: ${Math.min(100, (loc.temp / 45) * 100)}%"></div></div>
+                        </div>
+
+                        <!-- Humidity -->
+                        <div class="metric-card" style="animation-delay: 0.05s">
+                            <div class="metric-header">
+                                <div class="metric-icon-wrap humidity"><i data-lucide="droplets" style="width:20px;height:20px"></i></div>
+                                <span class="metric-label">Humidity</span>
+                            </div>
+                            <div class="metric-value">${loc.humidity}%</div>
+                            <div class="metric-sub">${loc.humidity > 70 ? 'High moisture' : loc.humidity > 40 ? 'Comfortable' : 'Dry'}</div>
+                            <div class="metric-bar"><div class="metric-bar-fill humidity" style="width: ${loc.humidity}%"></div></div>
+                        </div>
+
+                        <!-- Wind -->
+                        <div class="metric-card" style="animation-delay: 0.1s">
+                            <div class="metric-header">
+                                <div class="metric-icon-wrap wind"><i data-lucide="wind" style="width:20px;height:20px"></i></div>
+                                <span class="metric-label">Wind Speed</span>
+                            </div>
+                            <div class="metric-value">${loc.wind_speed}<span style="font-size:0.875rem;font-weight:500;color:var(--text-muted)"> m/s</span></div>
+                            <div class="metric-sub">${loc.wind_speed < 2 ? 'Light breeze' : loc.wind_speed < 5 ? 'Moderate wind' : 'Strong wind'}</div>
+                            <div class="metric-bar"><div class="metric-bar-fill wind" style="width: ${Math.min(100, (loc.wind_speed / 12) * 100)}%"></div></div>
+                        </div>
+
+                        <!-- Rain Probability -->
+                        <div class="metric-card" style="animation-delay: 0.15s">
+                            <div class="metric-header">
+                                <div class="metric-icon-wrap rain"><i data-lucide="cloud-rain" style="width:20px;height:20px"></i></div>
+                                <span class="metric-label">Rain Probability</span>
+                            </div>
+                            <div class="metric-value" style="color: var(--risk-${riskClass})">${loc.rain_probability}%</div>
+                            <div class="metric-sub">${loc.risk} risk level</div>
+                            <div class="metric-bar"><div class="metric-bar-fill rain" style="width: ${loc.rain_probability}%"></div></div>
+                        </div>
+
+                        <!-- Precipitation -->
+                        <div class="metric-card" style="animation-delay: 0.2s">
+                            <div class="metric-header">
+                                <div class="metric-icon-wrap precip"><i data-lucide="cloud-drizzle" style="width:20px;height:20px"></i></div>
+                                <span class="metric-label">Precipitation</span>
+                            </div>
+                            <div class="metric-value">${precip}<span style="font-size:0.875rem;font-weight:500;color:var(--text-muted)"> mm</span></div>
+                            <div class="metric-sub">Estimated rainfall</div>
+                            <div class="metric-bar"><div class="metric-bar-fill precip" style="width: ${Math.min(100, (precip / 20) * 100)}%"></div></div>
+                        </div>
+
+                        <!-- UV Index -->
+                        <div class="metric-card" style="animation-delay: 0.25s">
+                            <div class="metric-header">
+                                <div class="metric-icon-wrap uv"><i data-lucide="sun" style="width:20px;height:20px"></i></div>
+                                <span class="metric-label">UV Index</span>
+                            </div>
+                            <div class="metric-value">${uv}</div>
+                            <div class="metric-sub">${getUVLabel(uv)}</div>
+                            <div class="metric-bar"><div class="metric-bar-fill uv" style="width: ${Math.min(100, (uv / 11) * 100)}%"></div></div>
+                        </div>
+
+                        <!-- Air Quality -->
+                        <div class="metric-card" style="animation-delay: 0.3s">
+                            <div class="metric-header">
+                                <div class="metric-icon-wrap aqi"><i data-lucide="leaf" style="width:20px;height:20px"></i></div>
+                                <span class="metric-label">Air Quality</span>
+                            </div>
+                            <div class="metric-value">${aqi}<span style="font-size:0.875rem;font-weight:500;color:var(--text-muted)"> AQI</span></div>
+                            <div class="metric-sub">${getAQILabel(aqi)}</div>
+                            <div class="metric-bar"><div class="metric-bar-fill aqi" style="width: ${Math.min(100, (aqi / 200) * 100)}%"></div></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- HISTORICAL CHART -->
+                <section class="chart-section">
+                    <div class="chart-header">
+                        <h2 class="section-title">Historical Trends</h2>
+                        <div class="chart-tabs" id="chart-tabs">
+                            <button class="chart-tab active" data-metric="temp" onclick="switchChart('temp', this)">Temperature</button>
+                            <button class="chart-tab" data-metric="humidity" onclick="switchChart('humidity', this)">Humidity</button>
+                            <button class="chart-tab" data-metric="rain_probability" onclick="switchChart('rain_probability', this)">Rain %</button>
+                            <button class="chart-tab" data-metric="wind_speed" onclick="switchChart('wind_speed', this)">Wind</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-canvas-wrap">
+                            <canvas id="historyCanvas"></canvas>
+                            <div class="chart-loading" id="chart-loading">
+                                <div class="spinner"></div>
+                                Loading historical data...
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- HISTORICAL TABLE -->
+                <section class="table-section">
+                    <div class="table-header">
+                        <h2 class="section-title">Recent Records</h2>
+                        <span class="records-info" id="records-info"></span>
+                    </div>
+                    <div class="table-container">
+                        <div class="table-scroll">
+                            <table class="data-table" id="history-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Temp (°C)</th>
+                                        <th>Humidity</th>
+                                        <th>Wind (m/s)</th>
+                                        <th>Rain %</th>
+                                        <th>Condition</th>
+                                        <th>Risk</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="history-tbody">
+                                    <tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--text-muted)">Loading records...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            `;
+
+            lucide.createIcons();
+        }
+
+        /* ---------- Historical Data ----------
+           Streams historical_data.json in chunks to avoid loading the full ~14MB
+           file into memory. Extracts only records matching the target city.
+           ------------------------------------------------------------ */
+        async function loadHistoricalData(placeName) {
+            try {
+                const res = await fetch('historical_data.json');
+                if (!res.ok) throw new Error('historical_data.json not found');
+
+                const placeNameLower = placeName.toLowerCase();
+                const cityNameKey   = getCityName(placeName).toLowerCase();
+
+                // --- Stream the response body in 256 KB chunks ---
+                const reader  = res.body.getReader();
+                const decoder = new TextDecoder();
+                const MAX_BYTES = 14 * 1024 * 1024; // read up to 14 MB (whole file)
+                let   buffer   = '';
+                let   bytesRead = 0;
+
+                historicalRecords = [];
+
+                // Simple state machine: track when we're inside a snapshot block
+                // for the target city, then parse just those objects.
+                let snapshotDate = null;
+
+                // Helper: extract a city record object from a text block
+                function extractCityRecord(block, targetPlaceLower, targetCityLower) {
+                    // Find all location objects inside this snapshot
+                    const locRegex = /\{[^{}]*"place"\s*:\s*"([^"]+)"[^{}]*\}/g;
+                    let m;
+                    while ((m = locRegex.exec(block)) !== null) {
+                        const foundPlace = m[1];
+                        if (
+                            foundPlace.toLowerCase() === targetPlaceLower ||
+                            getCityName(foundPlace).toLowerCase() === targetCityLower
+                        ) {
+                            try {
+                                return JSON.parse(m[0]);
+                            } catch (_) {
+                                // object spans multiple lines — fall through
+                            }
+                        }
+                    }
+                    return null;
+                }
+
+                // Process buffer: find complete snapshot objects
+                function processBuffer() {
+                    // Each snapshot starts with '{' and has a "generated_at" key
+                    // Strategy: find generated_at values and associated location blocks
+                    const dateRegex = /"generated_at"\s*:\s*"([^"]+)"/g;
+                    let dm;
+                    while ((dm = dateRegex.exec(buffer)) !== null) {
+                        const dateStr = dm[1];
+                        // Find the 'locations' array that follows this generated_at
+                        const afterDate = buffer.slice(dm.index);
+                        const locStart = afterDate.indexOf('"locations"');
+                        if (locStart === -1) break; // not yet buffered
+
+                        // Find the matching closing bracket for the locations array
+                        let depth = 0, i = locStart + '"locations"'.length;
+                        let inLocArray = false;
+                        for (; i < afterDate.length; i++) {
+                            if (afterDate[i] === '[') { inLocArray = true; depth++; }
+                            else if (afterDate[i] === ']' && inLocArray) {
+                                depth--;
+                                if (depth === 0) break;
+                            }
+                        }
+                        if (depth !== 0) break; // array not fully buffered yet
+
+                        const locBlock = afterDate.slice(locStart, i + 1);
+                        const rec = extractCityRecord(locBlock, placeNameLower, cityNameKey);
+                        if (rec) {
+                            historicalRecords.push({ date: dateStr, ...rec });
+                        }
+
+                        // Advance buffer past this processed snapshot
+                        buffer = buffer.slice(dm.index + locStart + i + 1);
+                        dateRegex.lastIndex = 0; // restart
+                    }
+                }
+
+                // Read stream
+                let done = false;
+                while (!done && bytesRead < MAX_BYTES) {
+                    const { value, done: streamDone } = await reader.read();
+                    done = streamDone;
+                    if (value) {
+                        bytesRead += value.length;
+                        buffer += decoder.decode(value, { stream: !done });
+                        processBuffer();
+                    }
+                }
+                reader.cancel();
+
+                // Final pass on remaining buffer
+                processBuffer();
+
+                // Deduplicate by day (keep last per day)
+                const byDay = {};
+                historicalRecords.forEach(r => {
+                    const dayKey = new Date(r.date).toISOString().slice(0, 10);
+                    if (!byDay[dayKey] || new Date(r.date) > new Date(byDay[dayKey].date)) {
+                        byDay[dayKey] = r;
+                    }
+                });
+                historicalRecords = Object.values(byDay).sort(
+                    (a, b) => new Date(a.date) - new Date(b.date)
+                );
+
+                // Keep last 60 data points
+                if (historicalRecords.length > 60) {
+                    historicalRecords = historicalRecords.slice(-60);
+                }
+
+                // Hide loading spinner
+                const loadingEl = document.getElementById('chart-loading');
+                if (loadingEl) loadingEl.style.display = 'none';
+
+                if (historicalRecords.length === 0) {
+                    const loadEl = document.getElementById('chart-loading');
+                    if (loadEl) {
+                        loadEl.innerHTML = '<i data-lucide="bar-chart-3" style="width:40px;height:40px;color:var(--text-muted)"></i><span>No historical data available for this city.</span>';
+                        loadEl.style.display = 'flex';
+                        loadEl.style.flexDirection = 'column';
+                        loadEl.style.alignItems = 'center';
+                        loadEl.style.gap = '0.5rem';
+                    }
+                    const tbody = document.getElementById('history-tbody');
+                    if (tbody) tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--text-muted)">No records found.</td></tr>';
+                    lucide.createIcons();
+                    return;
+                }
+
+                // Render chart and table
+                renderChart('temp');
+                renderTable();
+
+                document.getElementById('records-info').textContent =
+                    `${historicalRecords.length} records found`;
+
+            } catch (err) {
+                console.error('Historical data load failed', err);
+                const loadingEl = document.getElementById('chart-loading');
+                if (loadingEl) {
+                    loadingEl.innerHTML = '<span style="color:var(--accent-rose)">Failed to load historical data</span>';
+                }
+            }
+        }
+
+        /* ---------- Chart ---------- */
+        const metricConfig = {
+            temp: { label: 'Temperature (°C)', color: '#ef4444', bgColor: 'rgba(239, 68, 68, 0.1)', borderColor: '#ef4444' },
+            humidity: { label: 'Humidity (%)', color: '#3b82f6', bgColor: 'rgba(59, 130, 246, 0.1)', borderColor: '#3b82f6' },
+            rain_probability: { label: 'Rain Probability (%)', color: '#6366f1', bgColor: 'rgba(99, 102, 241, 0.1)', borderColor: '#6366f1' },
+            wind_speed: { label: 'Wind Speed (m/s)', color: '#06b6d4', bgColor: 'rgba(6, 182, 212, 0.1)', borderColor: '#06b6d4' },
+        };
+
+        function switchChart(metric, btn) {
+            currentChartMetric = metric;
+            document.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            renderChart(metric);
+        }
+
+        function renderChart(metric) {
+            const canvas = document.getElementById('historyCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const cfg = metricConfig[metric];
+
+            const labels = historicalRecords.map(r => {
+                const d = new Date(r.date);
+                return d.toLocaleDateString('en-NG', { month: 'short', day: 'numeric' });
+            });
+
+            const values = historicalRecords.map(r => r[metric] ?? 0);
+
+            if (historyChart) historyChart.destroy();
+
+            const isDark = document.body.classList.contains('dark');
+            const gridColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+            const tickColor = isDark ? '#94a3b8' : '#64748b';
+
+            historyChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: cfg.label,
+                        data: values,
+                        borderColor: cfg.borderColor,
+                        backgroundColor: cfg.bgColor,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 3,
+                        pointHoverRadius: 6,
+                        pointBackgroundColor: cfg.color,
+                        pointBorderColor: isDark ? '#111827' : '#ffffff',
+                        pointBorderWidth: 2,
+                        borderWidth: 2.5,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        intersect: false,
+                        mode: 'index',
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: isDark ? '#1e293b' : '#ffffff',
+                            titleColor: isDark ? '#f1f5f9' : '#0f172a',
+                            bodyColor: isDark ? '#94a3b8' : '#475569',
+                            borderColor: isDark ? '#334155' : '#e2e8f0',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 8,
+                            displayColors: false,
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: gridColor },
+                            ticks: {
+                                color: tickColor,
+                                font: { family: 'Inter', size: 11 },
+                                maxRotation: 45,
+                                maxTicksLimit: 15,
+                            },
+                            border: { display: false },
+                        },
+                        y: {
+                            grid: { color: gridColor },
+                            ticks: {
+                                color: tickColor,
+                                font: { family: 'Inter', size: 11 },
+                            },
+                            border: { display: false },
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateChartColors() {
+            if (historyChart) {
+                renderChart(currentChartMetric);
+            }
+        }
+
+        /* ---------- Table ---------- */
+        function renderTable() {
+            const tbody = document.getElementById('history-tbody');
+            if (!tbody) return;
+
+            // Show latest 20 records, reversed (newest first)
+            const records = historicalRecords.slice(-20).reverse();
+
+            tbody.innerHTML = records.map(r => {
+                const date = new Date(r.date);
+                const dateStr = date.toLocaleDateString('en-NG', { year: 'numeric', month: 'short', day: 'numeric' });
+                const timeStr = date.toLocaleTimeString('en-NG', { hour: '2-digit', minute: '2-digit' });
+                const riskClass = (r.risk || 'low').toLowerCase();
+
+                return `
+                    <tr>
+                        <td>${dateStr} <span style="color:var(--text-muted);font-size:0.75rem">${timeStr}</span></td>
+                        <td>${r.temp}°</td>
+                        <td>${r.humidity}%</td>
+                        <td>${r.wind_speed}</td>
+                        <td>${r.rain_probability}%</td>
+                        <td>${r.description || '—'}</td>
+                        <td><span class="table-risk-badge ${riskClass}">${r.risk || '—'}</span></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        /* ---------- Init ---------- */
+        window.addEventListener('load', () => {
+            init();
+            lucide.createIcons();
+        });
+    </script>
+</body>
+
+</html>
