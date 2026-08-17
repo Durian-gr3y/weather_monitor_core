@@ -105,128 +105,128 @@
     }
   },
   "Lokoja, Kogi, Nigeria": {
-    "timestamp": 1786955314.9793694,
+    "timestamp": 1786969059.7275686,
     "data": {
       "max_rain_prob": 100,
       "risk_level": "HIGH"
     }
   },
   "Ilorin, Kwara, Nigeria": {
-    "timestamp": 1786955315.8410537,
+    "timestamp": 1786969060.570641,
     "data": {
       "max_rain_prob": 100,
       "risk_level": "HIGH"
     }
   },
   "Ikeja, Lagos, Nigeria": {
-    "timestamp": 1786955316.6933985,
+    "timestamp": 1786969061.2760594,
     "data": {
-      "max_rain_prob": 54,
+      "max_rain_prob": 60,
       "risk_level": "MODERATE"
     }
   },
   "Owerri, Imo, Nigeria": {
-    "timestamp": 1786955317.545386,
+    "timestamp": 1786969061.9671762,
     "data": {
-      "max_rain_prob": 84,
+      "max_rain_prob": 100,
       "risk_level": "HIGH"
     }
   },
   "Abeokuta, Ogun, Nigeria": {
-    "timestamp": 1786955318.4224389,
+    "timestamp": 1786969062.6588278,
     "data": {
-      "max_rain_prob": 93,
+      "max_rain_prob": 91,
       "risk_level": "HIGH"
     }
   },
   "Sagamu, Ogun State, Nigeria": {
-    "timestamp": 1786955319.2801933,
+    "timestamp": 1786969063.3619936,
     "data": {
       "max_rain_prob": 70,
       "risk_level": "HIGH"
     }
   },
   "Akure, Ondo, Nigeria": {
-    "timestamp": 1786955320.1279273,
+    "timestamp": 1786969064.2192943,
     "data": {
       "max_rain_prob": 100,
       "risk_level": "HIGH"
     }
   },
   "Osogbo, Osun, Nigeria": {
-    "timestamp": 1786955321.1128821,
+    "timestamp": 1786969065.0510387,
     "data": {
       "max_rain_prob": 100,
       "risk_level": "HIGH"
     }
   },
   "Jos, Plateau, Nigeria": {
-    "timestamp": 1786955321.968258,
+    "timestamp": 1786969065.74606,
     "data": {
-      "max_rain_prob": 66,
-      "risk_level": "MODERATE"
-    }
-  },
-  "Port Harcourt, Rivers, Nigeria": {
-    "timestamp": 1786955322.829859,
-    "data": {
-      "max_rain_prob": 91,
+      "max_rain_prob": 100,
       "risk_level": "HIGH"
     }
   },
-  "Ibadan, Oyo, Nigeria": {
-    "timestamp": 1786955323.8115697,
+  "Port Harcourt, Rivers, Nigeria": {
+    "timestamp": 1786969066.442561,
     "data": {
-      "max_rain_prob": 96,
+      "max_rain_prob": 65,
+      "risk_level": "MODERATE"
+    }
+  },
+  "Ibadan, Oyo, Nigeria": {
+    "timestamp": 1786969067.150312,
+    "data": {
+      "max_rain_prob": 100,
       "risk_level": "HIGH"
     }
   },
   "Jalingo, Taraba, Nigeria": {
-    "timestamp": 1786955324.8030443,
+    "timestamp": 1786969067.8324528,
     "data": {
-      "max_rain_prob": 28,
+      "max_rain_prob": 1,
       "risk_level": "LOW"
     }
   },
   "Ikole, Ekiti, Nigeria": {
-    "timestamp": 1786955325.809874,
+    "timestamp": 1786969068.5306413,
     "data": {
       "max_rain_prob": 100,
       "risk_level": "HIGH"
     }
   },
   "Lafia, Nasarawa, Nigeria": {
-    "timestamp": 1786955326.8207622,
+    "timestamp": 1786969069.387984,
     "data": {
-      "max_rain_prob": 88,
-      "risk_level": "HIGH"
+      "max_rain_prob": 64,
+      "risk_level": "MODERATE"
     }
   },
   "Bori, Rivers, Nigeria": {
-    "timestamp": 1786955327.8251445,
+    "timestamp": 1786969070.0885537,
     "data": {
-      "max_rain_prob": 87,
-      "risk_level": "HIGH"
+      "max_rain_prob": 53,
+      "risk_level": "MODERATE"
     }
   },
   "Bukuru, Plateau, Nigeria": {
-    "timestamp": 1786955328.8309517,
-    "data": {
-      "max_rain_prob": 75,
-      "risk_level": "HIGH"
-    }
-  },
-  "Oron, Akwa Ibom, Nigeria": {
-    "timestamp": 1786955329.7284493,
+    "timestamp": 1786969070.9344263,
     "data": {
       "max_rain_prob": 100,
       "risk_level": "HIGH"
     }
   },
-  "Maitama, Abuja, Nigeria": {
-    "timestamp": 1786955330.594959,
+  "Oron, Akwa Ibom, Nigeria": {
+    "timestamp": 1786969071.8023474,
     "data": {
-      "max_rain_prob": 96,
+      "max_rain_prob": 53,
+      "risk_level": "MODERATE"
+    }
+  },
+  "Maitama, Abuja, Nigeria": {
+    "timestamp": 1786969072.5170608,
+    "data": {
+      "max_rain_prob": 92,
       "risk_level": "HIGH"
     }
   }
