@@ -52060,3 +52060,36 @@ timestamp,place,temp,feels_like,humidity,wind_speed,clouds,description,rain_prob
 2026-08-21T08:24:26.084284+00:00,"Bukuru, Plateau, Nigeria",18.99,19.29,90,1.55,100,Light rain,100,HIGH,0.69,2,12.53
 2026-08-21T08:24:26.084284+00:00,"Oron, Akwa Ibom, Nigeria",26.35,26.35,87,1.39,89,Moderate rain,100,HIGH,1.28,1,13.06
 2026-08-21T08:24:26.084284+00:00,"Maitama, Abuja, Nigeria",24.95,25.75,86,2.18,87,Moderate rain,100,HIGH,1.12,2,12.56
+2026-08-21T10:17:59.480117+00:00,"Umuahia, Abia, Nigeria",27.91,31.44,77,2.39,94,Light rain,100,HIGH,0.64,1,12.19
+2026-08-21T10:17:59.480117+00:00,"Uyo, Akwa Ibom, Nigeria",28.6,32.73,75,1.69,97,Moderate rain,100,HIGH,1.39,1,12.5
+2026-08-21T10:17:59.480117+00:00,"Yola, Adamawa, Nigeria",30.88,34.84,61,1.31,75,Broken clouds,5,LOW,0,1,12.36
+2026-08-21T10:17:59.480117+00:00,"Awka, Anambra, Nigeria",28.09,32.01,78,2.27,100,Light rain,100,HIGH,0.3,2,12.19
+2026-08-21T10:17:59.480117+00:00,"Yenagoa, Bayelsa, Nigeria",28.11,31.9,77,3.22,94,Moderate rain,100,HIGH,1.57,1,12.22
+2026-08-21T10:17:59.480117+00:00,"Makurdi, Benue, Nigeria",28,31.95,79,1.03,97,Moderate rain,91,HIGH,1.95,4,12.27
+2026-08-21T10:17:59.480117+00:00,"Calabar, Cross River, Nigeria",29.16,34.09,75,1.24,90,Moderate rain,100,HIGH,1.11,1,12.71
+2026-08-21T10:17:59.480117+00:00,"Asaba, Delta, Nigeria",28.91,33.87,77,2.03,96,Light rain,100,HIGH,0.3,1,12.14
+2026-08-21T10:17:59.480117+00:00,"Benin City, Edo, Nigeria",28.49,32.13,73,2.08,96,Overcast clouds,100,HIGH,0,1,12.3
+2026-08-21T10:17:59.480117+00:00,"Ado Ekiti, Ekiti, Nigeria",26.31,26.31,79,2.18,99,Light rain,100,HIGH,0.7,2,12.37
+2026-08-21T10:17:59.480117+00:00,"Enugu, Enugu, Nigeria",28.08,32.3,80,2.59,99,Light rain,100,HIGH,0.76,3,12.45
+2026-08-21T10:17:59.480117+00:00,"Dutse, Jigawa, Nigeria",29.62,31.77,58,1.14,91,Overcast clouds,13,LOW,0,2,12.25
+2026-08-21T10:17:59.480117+00:00,"Kaduna, Kaduna, Nigeria",23.78,24.43,85,1.42,100,Overcast clouds,98,HIGH,0,2,12.24
+2026-08-21T10:17:59.480117+00:00,"Kano, Kano, Nigeria",30.14,31.26,50,1.18,100,Overcast clouds,16,LOW,0,2,12.15
+2026-08-21T10:17:59.480117+00:00,"Birnin Kebbi, Kebbi, Nigeria",26.47,26.47,65,1.43,100,Overcast clouds,100,HIGH,0,1,11.75
+2026-08-21T10:17:59.480117+00:00,"Lokoja, Kogi, Nigeria",29.46,33.97,71,1.98,65,Moderate rain,100,HIGH,1.02,2,11.72
+2026-08-21T10:17:59.480117+00:00,"Ilorin, Kwara, Nigeria",27.23,29.74,75,2.34,99,Moderate rain,100,HIGH,1.85,2,12.37
+2026-08-21T10:17:59.480117+00:00,"Ikeja, Lagos, Nigeria",28.93,32.22,68,3.07,96,Overcast clouds,68,MODERATE,0,1,12.39
+2026-08-21T10:17:59.480117+00:00,"Owerri, Imo, Nigeria",28.26,32.42,78,2.74,98,Moderate rain,100,HIGH,1.21,1,12.26
+2026-08-21T10:17:59.480117+00:00,"Abeokuta, Ogun, Nigeria",28.24,31.58,73,1.87,97,Overcast clouds,100,HIGH,0,1,12.2
+2026-08-21T10:17:59.480117+00:00,"Sagamu, Ogun State, Nigeria",30.09,33.85,64,1.8,99,Overcast clouds,88,HIGH,0,1,12.72
+2026-08-21T10:17:59.480117+00:00,"Akure, Ondo, Nigeria",27.51,30.08,73,2.05,100,Light rain,100,HIGH,0.38,1,12.23
+2026-08-21T10:17:59.480117+00:00,"Osogbo, Osun, Nigeria",25.56,26.34,83,1.37,100,Overcast clouds,100,HIGH,0,3,12.51
+2026-08-21T10:17:59.480117+00:00,"Jos, Plateau, Nigeria",19.67,20.04,90,1.6,100,Light rain,100,HIGH,0.31,1,12.53
+2026-08-21T10:17:59.480117+00:00,"Port Harcourt, Rivers, Nigeria",28.68,32.56,73,3.37,98,Moderate rain,100,HIGH,1.86,1,12.49
+2026-08-21T10:17:59.480117+00:00,"Ibadan, Oyo, Nigeria",28.2,31.2,71,1.87,99,Overcast clouds,100,HIGH,0,1,12.22
+2026-08-21T10:17:59.480117+00:00,"Jalingo, Taraba, Nigeria",26.13,26.13,83,1.06,100,Overcast clouds,27,LOW,0,1,12.49
+2026-08-21T10:17:59.480117+00:00,"Ikole, Ekiti, Nigeria",25.72,26.44,80,2.91,100,Moderate rain,100,HIGH,1.65,2,12.25
+2026-08-21T10:17:59.480117+00:00,"Lafia, Nasarawa, Nigeria",26.16,26.16,88,2.02,97,Moderate rain,96,HIGH,2.33,2,11.99
+2026-08-21T10:17:59.480117+00:00,"Bori, Rivers, Nigeria",27.96,31.41,76,3,98,Moderate rain,100,HIGH,2.19,1,12.57
+2026-08-21T10:17:59.480117+00:00,"Bukuru, Plateau, Nigeria",19.02,19.35,91,1.95,100,Light rain,100,HIGH,0.27,1,12.53
+2026-08-21T10:17:59.480117+00:00,"Oron, Akwa Ibom, Nigeria",28.4,32.6,77,1.36,92,Moderate rain,100,HIGH,1.28,1,13.06
+2026-08-21T10:17:59.480117+00:00,"Maitama, Abuja, Nigeria",24.98,25.83,88,1.57,90,Moderate rain,100,HIGH,1.93,2,12.56
