@@ -60805,3 +60805,36 @@ timestamp,place,temp,feels_like,humidity,wind_speed,clouds,description,rain_prob
 2026-10-03T07:11:50.687925+00:00,"Bukuru, Plateau, Nigeria",20.13,20.44,86,1.44,100,Overcast clouds,88,HIGH,0,2,12.01
 2026-10-03T07:11:50.687925+00:00,"Oron, Akwa Ibom, Nigeria",23.32,24.19,95,0.8,100,Overcast clouds,68,MODERATE,0,1,12.74
 2026-10-03T07:11:50.687925+00:00,"Maitama, Abuja, Nigeria",22.6,23.34,93,1.58,100,Overcast clouds,48,MODERATE,0,2,11.72
+2026-10-03T12:48:14.595752+00:00,"Umuahia, Abia, Nigeria",27.75,31.08,77,3.08,100,Light rain,76,HIGH,0.69,1,12.45
+2026-10-03T12:48:14.595752+00:00,"Uyo, Akwa Ibom, Nigeria",26.11,26.11,82,2.14,100,Light rain,60,MODERATE,0.31,1,12.82
+2026-10-03T12:48:14.595752+00:00,"Yola, Adamawa, Nigeria",34.5,38.12,46,2.28,55,Broken clouds,100,HIGH,0,1,11.85
+2026-10-03T12:48:14.595752+00:00,"Awka, Anambra, Nigeria",27.88,31.09,75,0.93,100,Overcast clouds,92,HIGH,0,1,12.3
+2026-10-03T12:48:14.595752+00:00,"Yenagoa, Bayelsa, Nigeria",28.74,32.52,72,2.22,100,Moderate rain,100,HIGH,1.25,1,12.82
+2026-10-03T12:48:14.595752+00:00,"Makurdi, Benue, Nigeria",27.5,30.76,79,2.25,97,Overcast clouds,84,HIGH,0,2,11.88
+2026-10-03T12:48:14.595752+00:00,"Calabar, Cross River, Nigeria",25.22,26.07,87,1.52,100,Light rain,60,MODERATE,0.13,1,12.71
+2026-10-03T12:48:14.595752+00:00,"Asaba, Delta, Nigeria",28.36,33.02,80,1.86,99,Light rain,96,HIGH,0.69,1,12.18
+2026-10-03T12:48:14.595752+00:00,"Benin City, Edo, Nigeria",28.52,32.89,77,1.71,100,Moderate rain,100,HIGH,1.13,1,12.02
+2026-10-03T12:48:14.595752+00:00,"Ado Ekiti, Ekiti, Nigeria",27.31,29.79,74,0.94,100,Overcast clouds,56,MODERATE,0,1,11.9
+2026-10-03T12:48:14.595752+00:00,"Enugu, Enugu, Nigeria",27.03,30,82,2.1,100,Overcast clouds,72,HIGH,0,1,12.34
+2026-10-03T12:48:14.595752+00:00,"Dutse, Jigawa, Nigeria",34.26,35.12,37,3.93,54,Broken clouds,32,LOW,0,1,11.71
+2026-10-03T12:48:14.595752+00:00,"Kaduna, Kaduna, Nigeria",31.25,33.91,54,1.11,100,Overcast clouds,100,HIGH,0,1,11.94
+2026-10-03T12:48:14.595752+00:00,"Kano, Kano, Nigeria",34.8,35.51,35,4.1,100,Overcast clouds,12,LOW,0,1,11.92
+2026-10-03T12:48:14.595752+00:00,"Birnin Kebbi, Kebbi, Nigeria",34.74,36.18,38,0.4,95,Overcast clouds,28,LOW,0,1,11.4
+2026-10-03T12:48:14.595752+00:00,"Lokoja, Kogi, Nigeria",29.03,32.98,71,2.37,100,Overcast clouds,28,LOW,0,1,12.06
+2026-10-03T12:48:14.595752+00:00,"Ilorin, Kwara, Nigeria",28.47,31.45,69,2.16,100,Overcast clouds,88,HIGH,0,2,11.83
+2026-10-03T12:48:14.595752+00:00,"Ikeja, Lagos, Nigeria",28.94,33.35,74,3.6,100,Moderate rain,64,MODERATE,1.31,1,12.12
+2026-10-03T12:48:14.595752+00:00,"Owerri, Imo, Nigeria",27.41,30.56,79,2.37,100,Light rain,92,HIGH,0.88,1,12.41
+2026-10-03T12:48:14.595752+00:00,"Abeokuta, Ogun, Nigeria",30.34,34.87,66,0.88,100,Light rain,100,HIGH,0.25,2,11.88
+2026-10-03T12:48:14.595752+00:00,"Sagamu, Ogun State, Nigeria",29.99,34.54,68,1.14,100,Light rain,88,HIGH,0.94,1,12.02
+2026-10-03T12:48:14.595752+00:00,"Akure, Ondo, Nigeria",29.12,32.25,66,0.58,100,Overcast clouds,64,MODERATE,0,1,11.87
+2026-10-03T12:48:14.595752+00:00,"Osogbo, Osun, Nigeria",26.92,29.39,78,1.23,100,Overcast clouds,64,MODERATE,0,2,11.87
+2026-10-03T12:48:14.595752+00:00,"Jos, Plateau, Nigeria",28.02,28.47,50,4.56,18,Few clouds,100,HIGH,0,2,12.01
+2026-10-03T12:48:14.595752+00:00,"Port Harcourt, Rivers, Nigeria",28.4,31.77,72,2.18,100,Light rain,88,HIGH,0.69,1,12.56
+2026-10-03T12:48:14.595752+00:00,"Ibadan, Oyo, Nigeria",29.45,32.92,66,1.04,90,Light rain,92,HIGH,0.13,1,11.98
+2026-10-03T12:48:14.595752+00:00,"Jalingo, Taraba, Nigeria",30.42,35.05,66,1.72,100,Overcast clouds,100,HIGH,0,1,11.95
+2026-10-03T12:48:14.595752+00:00,"Ikole, Ekiti, Nigeria",27.72,29.9,68,1.59,100,Overcast clouds,44,MODERATE,0,1,11.95
+2026-10-03T12:48:14.595752+00:00,"Lafia, Nasarawa, Nigeria",31.25,36.47,64,1.36,53,Broken clouds,88,HIGH,0,2,11.61
+2026-10-03T12:48:14.595752+00:00,"Bori, Rivers, Nigeria",28.1,31.14,72,2.34,100,Light rain,88,HIGH,0.5,1,12.55
+2026-10-03T12:48:14.595752+00:00,"Bukuru, Plateau, Nigeria",27.48,27.89,50,4.56,18,Few clouds,100,HIGH,0,2,12.01
+2026-10-03T12:48:14.595752+00:00,"Oron, Akwa Ibom, Nigeria",25.77,26.62,85,1.06,100,Light rain,48,MODERATE,0.19,1,12.74
+2026-10-03T12:48:14.595752+00:00,"Maitama, Abuja, Nigeria",26.15,26.15,80,1.63,100,Overcast clouds,60,MODERATE,0,2,11.72
