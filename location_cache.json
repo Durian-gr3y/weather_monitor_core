@@ -1,5 +1,5 @@
 {
-  "version": "2a4d26240feb7a1971e07d9e991bcc8a78ad44737d777abb10aa91580a2caa36",
+  "version": "bbdb98f2cd68fdab30526ec1cfdf33d0fddcdbaa79c0b7ac6dd0a29e4f11c677",
   "locations": {
     "Umuahia, Abia, Nigeria": {
       "lat": 5.5324032,
@@ -70,8 +70,8 @@
       "lon": 4.5480484
     },
     "Ikeja, Lagos, Nigeria": {
-      "lat": 6.5974727,
-      "lon": 3.3432815
+      "lat": 6.601627,
+      "lon": 3.3515981
     },
     "Owerri, Imo, Nigeria": {
       "lat": 5.489736,
@@ -102,8 +102,8 @@
       "lon": 7.0188527
     },
     "Ibadan, Oyo, Nigeria": {
-      "lat": 7.3786064,
-      "lon": 3.8969928
+      "lat": 7.3783681,
+      "lon": 3.8972331
     },
     "Jalingo, Taraba, Nigeria": {
       "lat": 8.894985,
@@ -132,6 +132,114 @@
     "Maitama, Abuja, Nigeria": {
       "lat": 9.0805107,
       "lon": 7.4969005
+    },
+    "Warri, Delta, Nigeria": {
+      "lat": 5.5186186,
+      "lon": 5.7480196
+    },
+    "Ughelli, Delta, Nigeria": {
+      "lat": 5.494188,
+      "lon": 5.995321
+    },
+    "Ekpoma, Edo, Nigeria": {
+      "lat": 6.742063,
+      "lon": 6.139003
+    },
+    "Auchi, Edo, Nigeria": {
+      "lat": 7.067445,
+      "lon": 6.267666
+    },
+    "Ikot Ekpene, Akwa Ibom, Nigeria": {
+      "lat": 5.181975,
+      "lon": 7.7132177
+    },
+    "Ogoja, Cross River, Nigeria": {
+      "lat": 6.527803,
+      "lon": 8.6878448
+    },
+    "Obudu, Cross River, Nigeria": {
+      "lat": 6.5583976,
+      "lon": 9.0532889
+    },
+    "Bonny, Rivers, Nigeria": {
+      "lat": 4.505781,
+      "lon": 7.203466
+    },
+    "Abakaliki, Ebonyi, Nigeria": {
+      "lat": 6.3208897,
+      "lon": 8.1133202
+    },
+    "Aba, Abia, Nigeria": {
+      "lat": 5.1128008,
+      "lon": 7.3651376
+    },
+    "Nsukka, Enugu, Nigeria": {
+      "lat": 6.8561,
+      "lon": 7.3927
+    },
+    "Afikpo, Ebonyi, Nigeria": {
+      "lat": 5.8837902,
+      "lon": 7.9372068
+    },
+    "Okigwe, Imo, Nigeria": {
+      "lat": 5.8227091,
+      "lon": 7.3198299
+    },
+    "Nnewi, Anambra, Nigeria": {
+      "lat": 6.019531,
+      "lon": 6.917181
+    },
+    "Ogbomosho, Oyo, Nigeria": {
+      "lat": 8.133,
+      "lon": 4.25
+    },
+    "Iseyin, Oyo, Nigeria": {
+      "lat": 7.9710106,
+      "lon": 3.5956141
+    },
+    "Ile-Ife, Osun, Nigeria": {
+      "lat": 7.482824,
+      "lon": 4.5604451
+    },
+    "Ijebu-Ode, Ogun, Nigeria": {
+      "lat": 6.8140077,
+      "lon": 3.9151668
+    },
+    "Badagry, Lagos, Nigeria": {
+      "lat": 6.4393223,
+      "lon": 2.9060324
+    },
+    "Epe, Lagos, Nigeria": {
+      "lat": 6.5857286,
+      "lon": 3.975694
+    },
+    "Ondo, Ondo, Nigeria": {
+      "lat": 7.1,
+      "lon": 4.833333
+    },
+    "Owo, Ondo, Nigeria": {
+      "lat": 7.1962012,
+      "lon": 5.5868016
+    },
+    "Maiduguri, Borno, Nigeria": {
+      "lat": 11.8395375,
+      "lon": 13.1536214
+    },
+    "Damaturu, Yobe, Nigeria": {
+      "lat": 11.747,
+      "lon": 11.9608
+    },
+    "Sokoto, Sokoto, Nigeria": {
+      "lat": 13.0610588,
+      "lon": 5.2373194
+    },
+    "Katsina, Katsina, Nigeria": {
+      "lat": 12.9894283,
+      "lon": 7.6006278
+    },
+    "Minna, Niger, Nigeria": {
+      "lat": 9.6187093,
+      "lon": 6.5475752
     }
   }
 }
