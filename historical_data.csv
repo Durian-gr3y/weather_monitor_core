@@ -68431,3 +68431,63 @@ timestamp,place,temp,feels_like,humidity,wind_speed,clouds,description,rain_prob
 2026-11-01T10:52:06.273165+00:00,"Sokoto, Sokoto, Nigeria",37.33,34.44,10,3.33,80,Broken clouds,0,LOW,0,4,10.35
 2026-11-01T10:52:06.273165+00:00,"Katsina, Katsina, Nigeria",36.4,33.8,13,4.96,46,Scattered clouds,0,LOW,0,4,10.41
 2026-11-01T10:52:06.273165+00:00,"Minna, Niger, Nigeria",36.16,36.16,29,0.88,2,Clear sky,0,LOW,0,2,11.21
+2026-11-01T17:20:06.180896+00:00,"Umuahia, Abia, Nigeria",26.52,26.52,84,2.67,64,Light rain,60,MODERATE,0.44,1,11.6
+2026-11-01T17:20:06.180896+00:00,"Uyo, Akwa Ibom, Nigeria",26.98,30.08,84,1.86,63,Broken clouds,64,MODERATE,0,1,11.56
+2026-11-01T17:20:06.180896+00:00,"Yola, Adamawa, Nigeria",34.08,33.39,30,1.03,3,Clear sky,0,LOW,0,2,10.74
+2026-11-01T17:20:06.180896+00:00,"Awka, Anambra, Nigeria",29.06,32.49,68,1.21,34,Scattered clouds,28,LOW,0,2,11.6
+2026-11-01T17:20:06.180896+00:00,"Yenagoa, Bayelsa, Nigeria",26.91,30,85,2.46,80,Moderate rain,92,HIGH,1.06,1,12.23
+2026-11-01T17:20:06.180896+00:00,"Makurdi, Benue, Nigeria",30.46,33.73,60,1.81,8,Clear sky,0,LOW,0,2,10.94
+2026-11-01T17:20:06.180896+00:00,"Calabar, Cross River, Nigeria",26.5,26.5,86,1.96,71,Light rain,64,MODERATE,0.44,1,11.53
+2026-11-01T17:20:06.180896+00:00,"Asaba, Delta, Nigeria",29.14,33.83,74,0.95,19,Few clouds,24,LOW,0,1,11.76
+2026-11-01T17:20:06.180896+00:00,"Benin City, Edo, Nigeria",27.2,30.73,85,1.9,66,Moderate rain,64,MODERATE,1.06,1,11.53
+2026-11-01T17:20:06.180896+00:00,"Ado Ekiti, Ekiti, Nigeria",27.49,28.72,60,0.76,4,Clear sky,16,LOW,0,1,11.47
+2026-11-01T17:20:06.180896+00:00,"Enugu, Enugu, Nigeria",27.6,31.12,80,1.25,49,Light rain,40,MODERATE,0.19,2,11.32
+2026-11-01T17:20:06.180896+00:00,"Dutse, Jigawa, Nigeria",31.43,29.5,21,2.66,0,Clear sky,0,LOW,0,4,10.47
+2026-11-01T17:20:06.180896+00:00,"Kaduna, Kaduna, Nigeria",29.13,27.98,30,2.16,1,Clear sky,0,LOW,0,3,10.87
+2026-11-01T17:20:06.180896+00:00,"Kano, Kano, Nigeria",33.17,30.98,18,2.83,0,Clear sky,0,LOW,0,4,10.5
+2026-11-01T17:20:06.180896+00:00,"Birnin Kebbi, Kebbi, Nigeria",34.11,31.71,15,2.47,1,Clear sky,0,LOW,0,4,10.36
+2026-11-01T17:20:06.180896+00:00,"Lokoja, Kogi, Nigeria",31.02,34.4,58,1.86,4,Clear sky,0,LOW,0,1,11.18
+2026-11-01T17:20:06.180896+00:00,"Ilorin, Kwara, Nigeria",32.49,32.27,36,2.04,2,Clear sky,0,LOW,0,3,11.32
+2026-11-01T17:20:06.180896+00:00,"Ikeja, Lagos, Nigeria",29.52,33.27,67,3.71,17,Light rain,40,MODERATE,0.31,1,11.22
+2026-11-01T17:20:06.180896+00:00,"Owerri, Imo, Nigeria",26.58,26.58,87,2.65,72,Light rain,76,HIGH,0.19,1,11.85
+2026-11-01T17:20:06.180896+00:00,"Abeokuta, Ogun, Nigeria",30.82,34.47,60,0.74,3,Clear sky,20,LOW,0,1,11.12
+2026-11-01T17:20:06.180896+00:00,"Sagamu, Ogun State, Nigeria",28.27,31.96,75,3.2,13,Few clouds,20,LOW,0,1,11.24
+2026-11-01T17:20:06.180896+00:00,"Akure, Ondo, Nigeria",28.29,29.89,60,0.84,6,Clear sky,28,LOW,0,1,11.47
+2026-11-01T17:20:06.180896+00:00,"Osogbo, Osun, Nigeria",28.25,30.07,62,1.47,2,Clear sky,4,LOW,0,1,11.3
+2026-11-01T17:20:06.180896+00:00,"Jos, Plateau, Nigeria",25.59,25.09,34,2.5,0,Clear sky,0,LOW,0,3,10.92
+2026-11-01T17:20:06.180896+00:00,"Port Harcourt, Rivers, Nigeria",27.7,31.5,81,2.18,40,Light rain,76,HIGH,0.13,1,12.09
+2026-11-01T17:20:06.180896+00:00,"Ibadan, Oyo, Nigeria",30.32,32.83,57,0.85,7,Clear sky,20,LOW,0,1,11.16
+2026-11-01T17:20:06.180896+00:00,"Jalingo, Taraba, Nigeria",31.79,32.52,43,1.42,6,Clear sky,0,LOW,0,2,10.84
+2026-11-01T17:20:06.180896+00:00,"Ikole, Ekiti, Nigeria",28.39,29.33,54,0.4,2,Clear sky,0,LOW,0,1,11.39
+2026-11-01T17:20:06.180896+00:00,"Lafia, Nasarawa, Nigeria",30.52,32.79,55,2.02,2,Clear sky,0,LOW,0,2,10.99
+2026-11-01T17:20:06.180896+00:00,"Bori, Rivers, Nigeria",27.17,29.92,78,2.54,45,Scattered clouds,52,MODERATE,0,1,11.84
+2026-11-01T17:20:06.180896+00:00,"Bukuru, Plateau, Nigeria",25.06,24.51,34,2.5,0,Clear sky,0,LOW,0,3,10.92
+2026-11-01T17:20:06.180896+00:00,"Oron, Akwa Ibom, Nigeria",26.74,29.66,86,2.2,72,Light rain,64,MODERATE,0.19,1,11.58
+2026-11-01T17:20:06.180896+00:00,"Maitama, Abuja, Nigeria",30,31.37,52,2.45,5,Clear sky,0,LOW,0,2,11.29
+2026-11-01T17:20:06.180896+00:00,"Warri, Delta, Nigeria",28.28,32.47,78,4.14,70,Broken clouds,80,HIGH,0,1,11.71
+2026-11-01T17:20:06.180896+00:00,"Ughelli, Delta, Nigeria",27.37,30.58,80,2.79,82,Moderate rain,88,HIGH,1.5,1,11.84
+2026-11-01T17:20:06.180896+00:00,"Ekpoma, Edo, Nigeria",27.19,29.18,70,1.22,7,Clear sky,20,LOW,0,1,11.67
+2026-11-01T17:20:06.180896+00:00,"Auchi, Edo, Nigeria",28.79,32.81,73,2.12,9,Clear sky,0,LOW,0,1,11.47
+2026-11-01T17:20:06.180896+00:00,"Ikot Ekpene, Akwa Ibom, Nigeria",26.38,26.38,88,2.21,69,Light rain,88,HIGH,0.31,1,11.59
+2026-11-01T17:20:06.180896+00:00,"Ogoja, Cross River, Nigeria",28.36,32,74,1.6,46,Scattered clouds,24,LOW,0,2,10.99
+2026-11-01T17:20:06.180896+00:00,"Obudu, Cross River, Nigeria",27.93,31.2,75,3.33,57,Broken clouds,48,MODERATE,0,1,11.21
+2026-11-01T17:20:06.180896+00:00,"Bonny, Rivers, Nigeria",27.74,31.05,77,2.87,76,Light rain,60,MODERATE,0.19,1,12.2
+2026-11-01T17:20:06.180896+00:00,"Abakaliki, Ebonyi, Nigeria",28.82,33.06,74,1.97,75,Broken clouds,24,LOW,0,2,11.05
+2026-11-01T17:20:06.180896+00:00,"Aba, Abia, Nigeria",26.95,30.1,85,2.33,76,Light rain,88,HIGH,0.31,1,11.74
+2026-11-01T17:20:06.180896+00:00,"Nsukka, Enugu, Nigeria",26.24,26.24,77,1.43,35,Scattered clouds,32,LOW,0,2,11.56
+2026-11-01T17:20:06.180896+00:00,"Afikpo, Ebonyi, Nigeria",27.49,31.11,82,2.7,55,Broken clouds,48,MODERATE,0,1,11.2
+2026-11-01T17:20:06.180896+00:00,"Okigwe, Imo, Nigeria",27.85,31.44,78,2.12,78,Light rain,40,MODERATE,0.44,1,11.52
+2026-11-01T17:20:06.180896+00:00,"Nnewi, Anambra, Nigeria",28.85,32.58,71,1.21,31,Scattered clouds,32,LOW,0,1,11.71
+2026-11-01T17:20:06.180896+00:00,"Ogbomosho, Oyo, Nigeria",29.43,31.12,56,2.25,4,Clear sky,0,LOW,0,2,11.23
+2026-11-01T17:20:06.180896+00:00,"Iseyin, Oyo, Nigeria",29.9,31.72,55,1.79,5,Clear sky,0,LOW,0,1,11.03
+2026-11-01T17:20:06.180896+00:00,"Ile-Ife, Osun, Nigeria",27.8,30.04,68,0.98,19,Few clouds,32,LOW,0,1,11.34
+2026-11-01T17:20:06.180896+00:00,"Ijebu-Ode, Ogun, Nigeria",27.34,30.74,82,3.27,19,Few clouds,28,LOW,0,1,11.24
+2026-11-01T17:20:06.180896+00:00,"Badagry, Lagos, Nigeria",28.04,31.59,76,3.34,18,Few clouds,8,LOW,0,1,11.14
+2026-11-01T17:20:06.180896+00:00,"Epe, Lagos, Nigeria",27.6,31.25,81,3.15,14,Light rain,28,LOW,0.13,1,11.32
+2026-11-01T17:20:06.180896+00:00,"Ondo, Ondo, Nigeria",28.91,31.19,62,0.8,9,Clear sky,44,MODERATE,0,1,11.42
+2026-11-01T17:20:06.180896+00:00,"Owo, Ondo, Nigeria",28.18,30.34,65,1.43,6,Clear sky,16,LOW,0,1,11.43
+2026-11-01T17:20:06.180896+00:00,"Maiduguri, Borno, Nigeria",34.05,31.61,14,6.69,11,Few clouds,0,LOW,0,3,10.52
+2026-11-01T17:20:06.180896+00:00,"Damaturu, Yobe, Nigeria",35.45,33.55,20,3.1,31,Scattered clouds,0,LOW,0,3,10.11
+2026-11-01T17:20:06.180896+00:00,"Sokoto, Sokoto, Nigeria",33.87,31.44,14,2.46,0,Clear sky,0,LOW,0,4,10.35
+2026-11-01T17:20:06.180896+00:00,"Katsina, Katsina, Nigeria",32.79,30.61,18,3.36,9,Clear sky,0,LOW,0,4,10.41
+2026-11-01T17:20:06.180896+00:00,"Minna, Niger, Nigeria",31.74,31.14,35,2.21,2,Clear sky,0,LOW,0,3,11.21
